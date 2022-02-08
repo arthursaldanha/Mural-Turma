@@ -1,7 +1,11 @@
 import { AppProps } from 'next/app'
 import Head from 'next/head'
+import { ThemeProvider } from 'styled-components'
+import NextNProgress from 'nextjs-progressbar'
 
 import GlobalStyles from 'styles/global'
+import theme from 'styles/index'
+import { AuthProvider } from 'context/AuthContext'
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -17,8 +21,19 @@ function App({ Component, pageProps }: AppProps) {
           content="A simple project starter to work with TypeScript, React, NextJS and Styled Components"
         />
       </Head>
-      <GlobalStyles />
-      <Component {...pageProps} />
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <NextNProgress
+          color="#4ACFAC"
+          startPosition={0.3}
+          stopDelayMs={200}
+          height={4}
+          showOnShallow={true}
+        />
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
+      </ThemeProvider>
     </>
   )
 }
