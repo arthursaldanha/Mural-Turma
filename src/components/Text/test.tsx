@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { RenderWithTheme } from 'utils/renderWithTheme'
 
-import { Text } from '.'
+import Text from '.'
 
 describe('<Text />', () => {
   it('should render the Text Component in the document', () => {

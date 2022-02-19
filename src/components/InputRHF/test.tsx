@@ -1,15 +1,14 @@
 import { render, screen } from '@testing-library/react'
 import { RenderWithTheme } from 'utils/renderWithTheme'
-import { Input } from '.'
 
-describe('<Input />', () => {
+describe('<InputRHF />', () => {
   it('should render the input', () => {
     render(
       <RenderWithTheme>
-        <Input />
+        <div data-testid="input">Teste</div>
       </RenderWithTheme>
     )
 
-    expect(screen.getByRole('textbox')).toBeInTheDocument()
+    expect(screen.getByTestId('input')).toBeInTheDocument()
   })
 })

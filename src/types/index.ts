@@ -46,6 +46,7 @@ export interface ContainerProps extends FlexboxProps {
   backgroundColor?: string
   position?: 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky'
   padding?: string
+  margin?: string
   borderRadius?: string
   columnGap?: string
   rowGap?: string
@@ -61,10 +62,20 @@ interface Input {
 export interface InputProps
   extends Input,
     InputHTMLAttributes<HTMLInputElement> {
+  id?: string
+  label?: string
   startIcon?: React.ReactNode | React.Component
   endIcon?: React.ReactNode | React.Component
   mask?: string
 }
+
+/* export interface InputFormikProps
+  extends InputHTMLAttributes<HTMLInputElement> {
+  startIcon?: React.ReactNode | React.Component
+  endIcon?: React.ReactNode | React.Component
+  valid?: boolean
+  error?: boolean
+} */
 
 export interface TextProps extends LabelHTMLAttributes<HTMLLabelElement> {
   variant?:
@@ -86,5 +97,5 @@ export interface TextProps extends LabelHTMLAttributes<HTMLLabelElement> {
   fontFamily: 'Inter' | 'Lexend' | 'OpenSans'
   weight?: 'light' | 'regular' | 'medium' | 'semibold' | 'bold' | 'extrabold'
   color?: 'black' | 'whiteHigh' | 'whiteMedium' | 'whiteDisabled'
-  children: ReactNode
+  children: ReactNode | string
 }

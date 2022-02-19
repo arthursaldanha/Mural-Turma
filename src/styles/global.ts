@@ -3,9 +3,30 @@ import { createGlobalStyle, css } from 'styled-components'
 export default createGlobalStyle`
   ${({ theme }) => css`
     body {
+      min-height: 100vh;
+      min-width: 100vw;
       background: ${theme.colors.main.background.primary};
     }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    span,
+    label {
+      color: ${theme.colors.main.text.onSurface.high};
+    }
   `}
+
+  *, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+  }
 
   html {
     font-size: 100%
@@ -36,9 +57,6 @@ export default createGlobalStyle`
   figure, figcaption, footer, header, hgroup,
   menu, nav, output, ruby, section, summary,
   time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;

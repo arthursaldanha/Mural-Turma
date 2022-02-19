@@ -6,4 +6,4 @@ export default {
   component: Text
 } as Meta
 
-export const Default: Story = () => <Text>Teste</Text>
+export const Default: Story = () => <Text fontFamily="Inter">Teste</Text>

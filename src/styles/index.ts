@@ -16,24 +16,24 @@ const theme = {
           high: '#000'
         },
         onSurface: {
-          high: darken(0.87, '#fff'),
-          medium: darken(0.6, '#fff'),
-          disabled: darken(0.38, '#fff')
+          high: darken(0.1, '#fff'),
+          medium: darken(0.4, '#fff'),
+          disabled: darken(0.58, '#fff')
         }
       },
 
       background: {
-        primary: '#121212',
+        primary: '#1f1f1f',
         overlay: {
-          smalldp: lighten(0.05, '#121212'),
-          xsamlldp: lighten(0.07, '#121212'),
-          xxsmalldp: lighten(0.08, '#121212'),
-          mediumdp: lighten(0.09, '#121212'),
-          xmediumdp: lighten(0.11, '#121212'),
-          xxmediumdp: lighten(0.12, '#121212'),
-          largedp: lighten(0.14, '#121212'),
-          xlargedp: lighten(0.15, '#121212'),
-          xxlargedp: lighten(0.16, '#121212')
+          smalldp: lighten(0.07, '#121212'),
+          xsmalldp: lighten(0.08, '#121212'),
+          xxsmalldp: lighten(0.09, '#121212'),
+          mediumdp: lighten(0.11, '#121212'),
+          xmediumdp: lighten(0.12, '#121212'),
+          xxmediumdp: lighten(0.14, '#121212'),
+          largedp: lighten(0.15, '#121212'),
+          xlargedp: lighten(0.16, '#121212'),
+          xxlargedp: lighten(0.18, '#121212')
         }
       }
     },
@@ -313,6 +313,7 @@ const theme = {
       blueGray900: '#263238'
     }
   },
+
   typography: {
     fontFamily: {
       Inter: 'Inter',
@@ -346,6 +347,26 @@ const theme = {
       xxxlarge: '2.25rem',
       xxxxlarge: '2.375rem'
     }
+  },
+
+  sizes: {
+    small: '0.625rem',
+    xsmall: '0.75rem',
+    xxsmall: '0.875rem',
+    xxxsmall: '1rem',
+    xxxxsmall: '1.125rem',
+
+    medium: '1.25rem',
+    xmedium: '1.375rem',
+    xxmedium: '1.5rem',
+    xxxmedium: '1.625rem',
+    xxxxmedium: '1.75rem',
+
+    large: '1.875rem',
+    xlarge: '2rem',
+    xxlarge: '2.125rem',
+    xxxlarge: '2.25rem',
+    xxxxlarge: '2.375rem'
   }
 }
 

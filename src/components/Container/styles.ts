@@ -10,8 +10,9 @@ export const ContainerComponent = styled.div<ContainerProps>`
     flexDirection,
     flexWrap,
     backgroundColor,
-    padding,
     borderRadius,
+    padding,
+    margin,
     position,
     columnGap,
     rowGap
@@ -30,8 +31,9 @@ export const ContainerComponent = styled.div<ContainerProps>`
 
     position: ${position};
 
-    padding: ${padding};
     border-radius: ${borderRadius};
+    padding: ${padding};
+    margin: ${margin}
 
     background-color: ${backgroundColor ? backgroundColor : 'transparent'};
   `}
