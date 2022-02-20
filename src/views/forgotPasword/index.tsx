@@ -38,7 +38,8 @@ const RecoveryPassword = () => {
           toast.success(
             'Solicitação de alteração de senha criada com sucesso! Por favor, confira seu e-mail acadêmico!',
             {
-              theme: 'colored'
+              theme: 'colored',
+              autoClose: false
             }
           )
         }
