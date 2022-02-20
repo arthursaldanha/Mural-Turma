@@ -35,7 +35,7 @@ export const ContainerInput = styled.div`
 `
 
 export const Button = styled.button<ButtonProps>`
-  ${({ theme, disabled }) => css`
+  ${({ theme, disabled, loading }) => css`
     width: 100%;
     display: flex;
     justify-content: center;
@@ -56,6 +56,27 @@ export const Button = styled.button<ButtonProps>`
         color: #606060;
         cursor: not-allowed;
       `}
+
+    ${() =>
+      disabled &&
+      loading &&
+      css`
+        color: #000;
+        animation: loading 1.5s ease infinite;
+        cursor: not-allowed;
+      `}
+
+      @keyframes loading {
+      0% {
+        background-color: ${theme.colors.main.primary};
+      }
+      50% {
+        background-color: #2ba182;
+      }
+      100% {
+        background-color: ${theme.colors.main.primary};
+      }
+    }
   `}
 `
 

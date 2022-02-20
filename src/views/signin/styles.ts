@@ -49,6 +49,7 @@ export const ContainerForgotPassword = styled.div`
 
 export const Button = styled.button<ButtonProps>`
   ${({ theme, disabled }) => css`
+    position: relative;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -65,9 +66,22 @@ export const Button = styled.button<ButtonProps>`
     ${() =>
       disabled &&
       css`
-        background-color: ${theme.colors.main.background.overlay.xxmediumdp};
-        color: #505050;
+        color: #000;
+        animation: loading 1.5s ease infinite;
+        cursor: not-allowed;
       `}
+
+    @keyframes loading {
+      0% {
+        background-color: ${theme.colors.main.primary};
+      }
+      50% {
+        background-color: #2ba182;
+      }
+      100% {
+        background-color: ${theme.colors.main.primary};
+      }
+    }
   `}
 `
 
