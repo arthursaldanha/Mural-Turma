@@ -1,12 +1,15 @@
 import { ButtonHTMLAttributes } from 'react'
 import styled, { css } from 'styled-components'
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  loading?: boolean
+}
 
 export const ContainerViewPort = styled.div`
   ${({ theme }) => css`
     min-height: 100vh;
     min-width: 100vw;
+    padding: 20px 10px;
 
     display: flex;
     justify-content: center;
@@ -43,11 +46,14 @@ export const Button = styled.button<ButtonProps>`
     font-weight: ${theme.typography.weight.medium};
     border-radius: 10px;
     padding: 1rem;
+    transition: 300ms;
     cursor: pointer;
 
     ${() =>
       disabled &&
       css`
+        background-color: ${theme.colors.main.background.overlay.xlargedp};
+        color: #606060;
         cursor: not-allowed;
       `}
   `}
