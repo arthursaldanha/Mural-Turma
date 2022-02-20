@@ -66,16 +66,7 @@ export interface InputProps
   label?: string
   startIcon?: React.ReactNode | React.Component
   endIcon?: React.ReactNode | React.Component
-  mask?: string
 }
-
-/* export interface InputFormikProps
-  extends InputHTMLAttributes<HTMLInputElement> {
-  startIcon?: React.ReactNode | React.Component
-  endIcon?: React.ReactNode | React.Component
-  valid?: boolean
-  error?: boolean
-} */
 
 export interface TextProps extends LabelHTMLAttributes<HTMLLabelElement> {
   variant?:
