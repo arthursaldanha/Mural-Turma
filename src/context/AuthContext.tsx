@@ -21,9 +21,10 @@ type SignInCredentials = {
 
 type AuthContextData = {
   isAuthenticated: boolean
+  user: User | null
+  isLoadingFetch: boolean
   signIn: (credentials: SignInCredentials) => Promise<void>
   signOut: () => void
-  user: User | null
   setUser: Dispatch<SetStateAction<User | null>>
 }
 
@@ -51,6 +52,7 @@ export function signOut() {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null)
+  const [isLoadingFetch, setIsLoadingFetch] = useState(false)
   const isAuthenticated = !!user
 
   useEffect(() => {
@@ -66,6 +68,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [])
 
   async function signIn({ username, password }: SignInCredentials) {
+    setIsLoadingFetch(true)
     try {
       const { data } = await api.post(
         'login',
@@ -92,16 +95,28 @@ export function AuthProvider({ children }: AuthProviderProps) {
       authChannel.postMessage('signInt')
 
       Router.push('/dashboard')
+      setIsLoadingFetch(false)
     } catch (error) {
-      toast.error('Algo de inesperado aconteceu! Por favor, verifique', {
-        theme: 'colored'
-      })
+      toast.error(
+        'Algo de inesperado aconteceu! Por favor, verifique seu usuário e senha!',
+        {
+          theme: 'colored'
+        }
+      )
+      setIsLoadingFetch(false)
     }
   }
 
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, signIn, signOut, setUser }}
+      value={{
+        user,
+        isAuthenticated,
+        isLoadingFetch,
+        signIn,
+        signOut,
+        setUser
+      }}
     >
       {children}
     </AuthContext.Provider>
