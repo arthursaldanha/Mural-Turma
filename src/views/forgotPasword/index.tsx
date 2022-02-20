@@ -83,7 +83,7 @@ const RecoveryPassword = () => {
               disabled={!isValid || isLoadingFetch}
               loading={isLoadingFetch}
             >
-              Enviar
+              {isLoadingFetch ? 'Enviando...' : 'Enviar'}
             </S.Button>
           </form>
           <S.ContainerRecoveryPassword>

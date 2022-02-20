@@ -153,7 +153,7 @@ const RecoveryPassword = () => {
               disabled={!isValid || isLoadingFetch}
               loading={isLoadingFetch}
             >
-              Confirmar
+              {isLoadingFetch ? 'Confirmando...' : 'Confirmar'}
             </S.Button>
           </form>
         </S.Container>

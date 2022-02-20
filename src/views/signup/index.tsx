@@ -203,7 +203,7 @@ const SignUp = () => {
               disabled={!isValid || isLoadingFetch}
               loading={isLoadingFetch}
             >
-              Cadastrar
+              {isLoadingFetch ? 'Cadastrando...' : 'Cadastrar'}
             </S.Button>
           </form>
           <S.ContainerSignUp>
