@@ -20,9 +20,14 @@ type RecoveryPasswordFormTypes = {
 }
 
 const RecoveryPassword = () => {
+  const [isVisiblePassword, setIsVisiblePassword] = useState(false)
+  const [isVisibleConfirmPassword, setIsVisibleConfirmPassword] =
+    useState(false)
+  const [isLoadingFetch, setIsLoadingFetch] = useState(false)
+
   const {
     register,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isValid },
     handleSubmit
   } = useForm<RecoveryPasswordFormTypes>({
     mode: 'all',
@@ -33,6 +38,7 @@ const RecoveryPassword = () => {
   const { token, id } = router.query
 
   const onSubmit = async (data: RecoveryPasswordFormTypes) => {
+    setIsLoadingFetch(true)
     const { password } = data
     const finalData = JSON.stringify({
       id: id,
@@ -56,6 +62,7 @@ const RecoveryPassword = () => {
           setTimeout(() => {
             Router.push('/')
           }, 2000)
+          setIsLoadingFetch(false)
         }
       })
       .catch((error) => {
@@ -72,11 +79,8 @@ const RecoveryPassword = () => {
           )
         }
       })
+    setIsLoadingFetch(false)
   }
-
-  const [isVisiblePassword, setIsVisiblePassword] = useState(false)
-  const [isVisibleConfirmPassword, setIsVisibleConfirmPassword] =
-    useState(false)
 
   return (
     <>
@@ -144,7 +148,11 @@ const RecoveryPassword = () => {
               />
             </S.ContainerInput>
 
-            <S.Button type="submit" disabled={!isValid} loading={isSubmitting}>
+            <S.Button
+              type="submit"
+              disabled={!isValid || isLoadingFetch}
+              loading={isLoadingFetch}
+            >
               Confirmar
             </S.Button>
           </form>

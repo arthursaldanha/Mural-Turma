@@ -20,10 +20,11 @@ type SignInFormTypes = {
 }
 
 const SignIn = () => {
-  const { signIn } = useContext(AuthContext)
+  const [isVisible, setIsVisibility] = useState(false)
+  const { isLoadingFetch, signIn } = useContext(AuthContext)
   const {
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     handleSubmit
   } = useForm<SignInFormTypes>({
     mode: 'all',
@@ -34,8 +35,6 @@ const SignIn = () => {
   const onSubmit = async (data: SignInFormTypes) => {
     await signIn(data)
   }
-
-  const [isVisible, setIsVisibility] = useState(false)
 
   return (
     <>
@@ -92,8 +91,8 @@ const SignIn = () => {
                 </h3>
               </S.ContainerForgotPassword>
             </S.ContainerInput>
-            <S.Button type="submit" loading={isSubmitting}>
-              Entrar
+            <S.Button type="submit" disabled={isLoadingFetch}>
+              {isLoadingFetch ? 'Carregando...' : 'Entrar'}
             </S.Button>
           </form>
           <S.ContainerSignUp>

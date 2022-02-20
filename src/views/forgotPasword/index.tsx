@@ -11,15 +11,17 @@ import { forgotPasswordSchema } from 'schemas/forgotPassword'
 
 import { MdEmail } from 'react-icons/md'
 import * as S from './styles'
+import { useState } from 'react'
 
 type ForgotPasswordFormTypes = {
   email: string
 }
 
 const RecoveryPassword = () => {
+  const [isLoadingFetch, setIsLoadingFetch] = useState(false)
   const {
     register,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isValid },
     handleSubmit
   } = useForm<ForgotPasswordFormTypes>({
     mode: 'all',
@@ -28,26 +30,30 @@ const RecoveryPassword = () => {
   })
 
   const onSubmit = async ({ email }: ForgotPasswordFormTypes) => {
+    setIsLoadingFetch(true)
     await getAPIClient()
       .get(`api/v1/user/recovery?email=${email}`)
       .then((response) => {
         if (response.status === 200) {
           toast.success(
-            'Solicitação de alteração de senha criada com sucesso! Por favor, confira seu email acadêmico!',
+            'Solicitação de alteração de senha criada com sucesso! Por favor, confira seu e-mail acadêmico!',
             {
               theme: 'colored'
             }
           )
         }
+        setIsLoadingFetch(false)
       })
       .catch(() => {
         toast.error(
-          'Este email não existe! Por favor, verifique se está correto!',
+          'Este e-mail não existe! Por favor, verifique se está correto!',
           {
             theme: 'colored'
           }
         )
+        setIsLoadingFetch(false)
       })
+    setIsLoadingFetch(false)
   }
 
   return (
@@ -72,7 +78,11 @@ const RecoveryPassword = () => {
               />
             </S.ContainerInput>
 
-            <S.Button type="submit" disabled={!isValid} loading={isSubmitting}>
+            <S.Button
+              type="submit"
+              disabled={!isValid || isLoadingFetch}
+              loading={isLoadingFetch}
+            >
               Enviar
             </S.Button>
           </form>

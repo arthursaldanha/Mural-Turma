@@ -26,9 +26,13 @@ type SignUpFormTypes = {
 }
 
 const SignUp = () => {
+  const [isVisiblePassword, setIsVisiblePassword] = useState(false)
+  const [isVisibleConfirmPassword, setIsVisibleConfirmPassword] =
+    useState(false)
+  const [isLoadingFetch, setIsLoadingFetch] = useState(false)
   const {
     register,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isValid },
     handleSubmit
   } = useForm<SignUpFormTypes>({
     mode: 'all',
@@ -36,26 +40,24 @@ const SignUp = () => {
     resolver: yupResolver(signUpSchema)
   })
 
-  const [isVisiblePassword, setIsVisiblePassword] = useState(false)
-  const [isVisibleConfirmPassword, setIsVisibleConfirmPassword] =
-    useState(false)
-
   const onSubmit: SubmitHandler<SignUpFormTypes> = async (
     data: SignUpFormTypes
   ) => {
+    setIsLoadingFetch(true)
     await getAPIClient()
       .post('api/v1/user/signup', data)
       .then(() => {
         toast.success(
-          'Cadastro criado com sucesso! Em instantes, você receberá um email para ativação da conta.',
+          'Cadastro criado com sucesso! Em instantes, você receberá um e-mail para ativação da conta.',
           {
             theme: 'colored',
-            autoClose: 8000
+            autoClose: false
           }
         )
         setTimeout(() => {
           Router.push('/')
         }, 2000)
+        setIsLoadingFetch(false)
       })
       .catch((error) => {
         if (error.response) {
@@ -70,7 +72,9 @@ const SignUp = () => {
             }
           )
         }
+        setIsLoadingFetch(false)
       })
+    setIsLoadingFetch(false)
   }
 
   return (
@@ -194,7 +198,11 @@ const SignUp = () => {
                 onInput={(event) => handleInputMask('password', event)}
               />
             </S.ContainerInput>
-            <S.Button type="submit" disabled={!isValid} loading={isSubmitting}>
+            <S.Button
+              type="submit"
+              disabled={!isValid || isLoadingFetch}
+              loading={isLoadingFetch}
+            >
               Cadastrar
             </S.Button>
           </form>
