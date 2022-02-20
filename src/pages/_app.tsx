@@ -1,11 +1,13 @@
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { ThemeProvider } from 'styled-components'
-import NextNProgress from 'nextjs-progressbar'
-
-import GlobalStyles from 'styles/global'
 import theme from 'styles/index'
+import GlobalStyles from 'styles/global'
 import { AuthProvider } from 'context/AuthContext'
+
+import NextNProgress from 'nextjs-progressbar'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -33,6 +35,17 @@ function App({ Component, pageProps }: AppProps) {
         <AuthProvider>
           <Component {...pageProps} />
         </AuthProvider>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={true}
+          rtl={false}
+          pauseOnFocusLoss={true}
+          draggable={true}
+          pauseOnHover={true}
+        />
       </ThemeProvider>
     </>
   )
