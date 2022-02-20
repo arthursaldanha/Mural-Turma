@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react'
+import { FormEvent } from 'react'
 
 export function handleInputMask(
   name:
@@ -10,11 +10,9 @@ export function handleInputMask(
     | 'birthday'
     | 'phone'
     | 'password',
-  event: ChangeEvent<HTMLInputElement>
+  event: FormEvent<HTMLInputElement>
 ) {
-  const {
-    target: { value }
-  } = event
+  const valueInput = event.currentTarget.value
 
   const masks = {
     name: (value: string) => value,
@@ -34,5 +32,5 @@ export function handleInputMask(
         .replace(/(-\d{4})\d+?$/, '$1')
   }
 
-  return (event.target.value = masks[name](value))
+  return (event.currentTarget.value = masks[name](valueInput))
 }
