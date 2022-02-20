@@ -5,7 +5,7 @@ export const forgotPasswordSchema = yup
   .shape({
     email: yup
       .string()
-      .email('Digite um email válido')
+      .email('Digite um e-mail válido')
       .matches(
         /^([a-z]{2,20}\.[a-z]{2,20}[0-9]{3}@academico\.ifs\.edu\.br)+$/gm,
         {
