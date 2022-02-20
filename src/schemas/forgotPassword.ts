@@ -6,10 +6,13 @@ export const forgotPasswordSchema = yup
     email: yup
       .string()
       .email('Digite um email válido')
-      .matches(/^(\S+@academico.ifs.edu.br)+$/gm, {
-        message:
-          'O email acadêmico deve seguir o formato: @academico.ifs.edu.br'
-      })
+      .matches(
+        /^([a-z]{2,20}\.[a-z]{2,20}[0-9]{3}@academico\.ifs\.edu\.br)+$/gm,
+        {
+          message:
+            'Este e-mail não segue o formato acadêmico! Verifique-o e tente novamente.'
+        }
+      )
       .required('Este campo é obrigatório')
   })
   .required()
