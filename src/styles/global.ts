@@ -28,8 +28,9 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
-  html {
-    font-size: 100%
+  html, body {
+    font-size: 100%;
+    overflow-x: hidden;
   }
 
   @media only screen and (max-width: 1080px) {
