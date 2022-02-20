@@ -22,7 +22,7 @@ const SignIn = () => {
   const { signIn } = useContext(AuthContext)
   const {
     register,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isSubmitting },
     handleSubmit
   } = useForm<SignInFormTypes>({
     mode: 'all',
@@ -50,7 +50,7 @@ const SignIn = () => {
               startIcon={<HiUserCircle size="1.5rem" />}
               register={register}
               errors={errors}
-              onChange={(event) => handleInputMask('username', event)}
+              onInput={(event) => handleInputMask('username', event)}
             />
           </S.ContainerInput>
 
@@ -77,7 +77,7 @@ const SignIn = () => {
               }
               register={register}
               errors={errors}
-              onChange={(event) => handleInputMask('password', event)}
+              onInput={(event) => handleInputMask('password', event)}
             />
             <S.ContainerForgotPassword>
               <h3 className="title-recoverypassword">
@@ -87,7 +87,7 @@ const SignIn = () => {
               </h3>
             </S.ContainerForgotPassword>
           </S.ContainerInput>
-          <S.Button type="submit" disabled={!isValid || isSubmitting}>
+          <S.Button type="submit" loading={isSubmitting}>
             Entrar
           </S.Button>
         </form>

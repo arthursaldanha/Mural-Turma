@@ -13,6 +13,7 @@ import { signUpSchema } from 'schemas/signUp'
 import { Input } from 'components'
 
 import * as S from './styles'
+import { toast } from 'react-toastify'
 
 type SignUpFormTypes = {
   username: string
@@ -26,7 +27,7 @@ type SignUpFormTypes = {
 const SignUp = () => {
   const {
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isValid, isSubmitting },
     handleSubmit
   } = useForm<SignUpFormTypes>({
     mode: 'all',
@@ -41,9 +42,34 @@ const SignUp = () => {
   const onSubmit: SubmitHandler<SignUpFormTypes> = async (
     data: SignUpFormTypes
   ) => {
-    console.log(data)
-    await getAPIClient().post('api/v1/user/signup', data)
-    Router.push('/')
+    await getAPIClient()
+      .post('api/v1/user/signup', data)
+      .then(() => {
+        toast.success(
+          'Cadastro criado com sucesso! Em instantes, você receberá um email para ativação da conta.',
+          {
+            theme: 'colored',
+            autoClose: 8000
+          }
+        )
+        setTimeout(() => {
+          Router.push('/')
+        }, 2000)
+      })
+      .catch((error) => {
+        if (error.response) {
+          toast.error(`${error.response.data}`, {
+            theme: 'colored'
+          })
+        } else {
+          toast.error(
+            'Algo de inesperado aconteceu! Tente novamente mais tarde',
+            {
+              theme: 'colored'
+            }
+          )
+        }
+      })
   }
 
   return (
@@ -61,7 +87,7 @@ const SignUp = () => {
                 startIcon={<MdAlternateEmail size="1.5rem" />}
                 register={register}
                 errors={errors}
-                onChange={(event) => handleInputMask('username', event)}
+                onInput={(event) => handleInputMask('username', event)}
               />
             </S.ContainerInput>
 
@@ -75,7 +101,7 @@ const SignUp = () => {
                 startIcon={<HiUserCircle size="1.5rem" />}
                 register={register}
                 errors={errors}
-                onChange={(event) => handleInputMask('firstName', event)}
+                onInput={(event) => handleInputMask('firstName', event)}
               />
             </S.ContainerInput>
 
@@ -89,7 +115,7 @@ const SignUp = () => {
                 startIcon={<HiUserCircle size="1.5rem" />}
                 register={register}
                 errors={errors}
-                onChange={(event) => handleInputMask('lastName', event)}
+                onInput={(event) => handleInputMask('lastName', event)}
               />
             </S.ContainerInput>
 
@@ -103,7 +129,7 @@ const SignUp = () => {
                 startIcon={<MdEmail size="1.5rem" />}
                 register={register}
                 errors={errors}
-                onChange={(event) => handleInputMask('email', event)}
+                onInput={(event) => handleInputMask('email', event)}
               />
             </S.ContainerInput>
 
@@ -130,7 +156,7 @@ const SignUp = () => {
                 }
                 register={register}
                 errors={errors}
-                onChange={(event) => handleInputMask('password', event)}
+                onInput={(event) => handleInputMask('password', event)}
               />
             </S.ContainerInput>
 
@@ -161,10 +187,10 @@ const SignUp = () => {
                 }
                 register={register}
                 errors={errors}
-                onChange={(event) => handleInputMask('password', event)}
+                onInput={(event) => handleInputMask('password', event)}
               />
             </S.ContainerInput>
-            <S.Button type="submit" disabled={isSubmitting}>
+            <S.Button type="submit" disabled={!isValid} loading={isSubmitting}>
               Cadastrar
             </S.Button>
           </form>

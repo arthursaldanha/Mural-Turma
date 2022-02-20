@@ -9,6 +9,7 @@ import { FaKey, FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 import { useState } from 'react'
 import Router, { useRouter } from 'next/router'
 import { recoveryPasswordSchema } from 'schemas/recoveryPassword'
+import { toast } from 'react-toastify'
 
 type RecoveryPasswordFormTypes = {
   password: string
@@ -18,7 +19,7 @@ type RecoveryPasswordFormTypes = {
 const RecoveryPassword = () => {
   const {
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isValid, isSubmitting },
     handleSubmit
   } = useForm<RecoveryPasswordFormTypes>({
     mode: 'all',
@@ -41,13 +42,32 @@ const RecoveryPassword = () => {
           'Content-Type': 'application/json'
         }
       })
-      .then(function (response) {
+      .then((response) => {
         if (response.status === 200) {
-          Router.push('/')
+          toast.success(
+            'Senha alterada com sucesso! Em instantes, você será redirecionado para a página inicial!',
+            {
+              theme: 'colored'
+            }
+          )
+          setTimeout(() => {
+            Router.push('/')
+          }, 2000)
         }
       })
-      .catch(function (error) {
-        console.log(error)
+      .catch((error) => {
+        if (error.response) {
+          toast.error(`${error.response.data}`, {
+            theme: 'colored'
+          })
+        } else {
+          toast.error(
+            'Algo de inesperado aconteceu! Tente novamente mais tarde',
+            {
+              theme: 'colored'
+            }
+          )
+        }
       })
   }
 
@@ -82,7 +102,7 @@ const RecoveryPassword = () => {
               }
               register={register}
               errors={errors}
-              onChange={(event) => handleInputMask('password', event)}
+              onInput={(event) => handleInputMask('password', event)}
             />
           </S.ContainerInput>
 
@@ -113,11 +133,11 @@ const RecoveryPassword = () => {
               }
               register={register}
               errors={errors}
-              onChange={(event) => handleInputMask('password', event)}
+              onInput={(event) => handleInputMask('password', event)}
             />
           </S.ContainerInput>
 
-          <S.Button type="submit" disabled={isSubmitting}>
+          <S.Button type="submit" disabled={!isValid} loading={isSubmitting}>
             Confirmar
           </S.Button>
         </form>

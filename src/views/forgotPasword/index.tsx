@@ -9,6 +9,7 @@ import { handleInputMask } from 'utils/masks'
 import Link from 'next/link'
 import { getAPIClient } from 'services/axios'
 import { forgotPasswordSchema } from 'schemas/forgotPassword'
+import { toast } from 'react-toastify'
 
 type ForgotPasswordFormTypes = {
   email: string
@@ -17,7 +18,7 @@ type ForgotPasswordFormTypes = {
 const RecoveryPassword = () => {
   const {
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isValid, isSubmitting },
     handleSubmit
   } = useForm<ForgotPasswordFormTypes>({
     mode: 'all',
@@ -26,8 +27,26 @@ const RecoveryPassword = () => {
   })
 
   const onSubmit = async ({ email }: ForgotPasswordFormTypes) => {
-    console.log(email)
-    await getAPIClient().get(`api/v1/user/recovery?email=${email}`)
+    await getAPIClient()
+      .get(`api/v1/user/recovery?email=${email}`)
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success(
+            'Solicitação de alteração de senha criada com sucesso! Por favor, confira seu email acadêmico!',
+            {
+              theme: 'colored'
+            }
+          )
+        }
+      })
+      .catch(() => {
+        toast.error(
+          'Este email não existe! Por favor, verifique se está correto!',
+          {
+            theme: 'colored'
+          }
+        )
+      })
   }
 
   return (
@@ -44,11 +63,11 @@ const RecoveryPassword = () => {
               startIcon={<MdEmail size="1.5rem" />}
               register={register}
               errors={errors}
-              onChange={(event) => handleInputMask('email', event)}
+              onInput={(event) => handleInputMask('email', event)}
             />
           </S.ContainerInput>
 
-          <S.Button type="submit" disabled={isSubmitting}>
+          <S.Button type="submit" disabled={!isValid} loading={isSubmitting}>
             Enviar
           </S.Button>
         </form>
