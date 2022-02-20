@@ -39,7 +39,7 @@ export default createGlobalStyle`
     }
   }
 
-  @media only screen and (max-width: 1080px) {
+  @media only screen and (max-width: 720px) {
     html {
       font-size: 87.50%
     }
