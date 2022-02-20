@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Router from 'next/router'
 import Link from 'next/link'
+import Head from 'next/head'
 import { getAPIClient } from 'services/axios'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -74,6 +75,9 @@ const SignUp = () => {
 
   return (
     <>
+      <Head>
+        <title>Cadastre-se • Mural Turma</title>
+      </Head>
       <S.ContainerViewPort>
         <S.Container>
           <form onSubmit={handleSubmit(onSubmit)}>

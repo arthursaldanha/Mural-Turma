@@ -1,15 +1,18 @@
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Input } from 'components'
-
-import * as S from './styles'
-import { handleInputMask } from 'utils/masks'
-import { getAPIClient } from 'services/axios'
-import { FaKey, FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 import { useState } from 'react'
 import Router, { useRouter } from 'next/router'
-import { recoveryPasswordSchema } from 'schemas/recoveryPassword'
+import Head from 'next/head'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { toast } from 'react-toastify'
+
+import { Input } from 'components'
+
+import { handleInputMask } from 'utils/masks'
+import { recoveryPasswordSchema } from 'schemas/recoveryPassword'
+import { getAPIClient } from 'services/axios'
+
+import { FaKey, FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
+import * as S from './styles'
 
 type RecoveryPasswordFormTypes = {
   password: string
@@ -76,73 +79,78 @@ const RecoveryPassword = () => {
     useState(false)
 
   return (
-    <S.ContainerViewPort>
-      <S.Container>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <S.ContainerInput>
-            <Input<RecoveryPasswordFormTypes>
-              label="password"
-              name="password"
-              type={isVisiblePassword ? 'text' : 'password'}
-              placeholder="Digite sua nova senha"
-              autoComplete="off"
-              startIcon={<FaKey size="1.3rem" />}
-              endIcon={
-                isVisiblePassword ? (
-                  <FaRegEye
-                    size="1.5rem"
-                    onClick={() => setIsVisiblePassword(!isVisiblePassword)}
-                  />
-                ) : (
-                  <FaRegEyeSlash
-                    size="1.5rem"
-                    onClick={() => setIsVisiblePassword(!isVisiblePassword)}
-                  />
-                )
-              }
-              register={register}
-              errors={errors}
-              onInput={(event) => handleInputMask('password', event)}
-            />
-          </S.ContainerInput>
+    <>
+      <Head>
+        <title>Recuperar a senha • Mural Turma</title>
+      </Head>
+      <S.ContainerViewPort>
+        <S.Container>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <S.ContainerInput>
+              <Input<RecoveryPasswordFormTypes>
+                label="password"
+                name="password"
+                type={isVisiblePassword ? 'text' : 'password'}
+                placeholder="Digite sua nova senha"
+                autoComplete="off"
+                startIcon={<FaKey size="1.3rem" />}
+                endIcon={
+                  isVisiblePassword ? (
+                    <FaRegEye
+                      size="1.5rem"
+                      onClick={() => setIsVisiblePassword(!isVisiblePassword)}
+                    />
+                  ) : (
+                    <FaRegEyeSlash
+                      size="1.5rem"
+                      onClick={() => setIsVisiblePassword(!isVisiblePassword)}
+                    />
+                  )
+                }
+                register={register}
+                errors={errors}
+                onInput={(event) => handleInputMask('password', event)}
+              />
+            </S.ContainerInput>
 
-          <S.ContainerInput>
-            <Input<RecoveryPasswordFormTypes>
-              label="passwordConfirmation"
-              name="passwordConfirmation"
-              type={isVisibleConfirmPassword ? 'text' : 'password'}
-              placeholder="Confirme sua senha"
-              autoComplete="off"
-              startIcon={<FaKey size="1.3rem" />}
-              endIcon={
-                isVisibleConfirmPassword ? (
-                  <FaRegEye
-                    size="1.5rem"
-                    onClick={() =>
-                      setIsVisibleConfirmPassword(!isVisibleConfirmPassword)
-                    }
-                  />
-                ) : (
-                  <FaRegEyeSlash
-                    size="1.5rem"
-                    onClick={() =>
-                      setIsVisibleConfirmPassword(!isVisibleConfirmPassword)
-                    }
-                  />
-                )
-              }
-              register={register}
-              errors={errors}
-              onInput={(event) => handleInputMask('password', event)}
-            />
-          </S.ContainerInput>
+            <S.ContainerInput>
+              <Input<RecoveryPasswordFormTypes>
+                label="passwordConfirmation"
+                name="passwordConfirmation"
+                type={isVisibleConfirmPassword ? 'text' : 'password'}
+                placeholder="Confirme sua senha"
+                autoComplete="off"
+                startIcon={<FaKey size="1.3rem" />}
+                endIcon={
+                  isVisibleConfirmPassword ? (
+                    <FaRegEye
+                      size="1.5rem"
+                      onClick={() =>
+                        setIsVisibleConfirmPassword(!isVisibleConfirmPassword)
+                      }
+                    />
+                  ) : (
+                    <FaRegEyeSlash
+                      size="1.5rem"
+                      onClick={() =>
+                        setIsVisibleConfirmPassword(!isVisibleConfirmPassword)
+                      }
+                    />
+                  )
+                }
+                register={register}
+                errors={errors}
+                onInput={(event) => handleInputMask('password', event)}
+              />
+            </S.ContainerInput>
 
-          <S.Button type="submit" disabled={!isValid} loading={isSubmitting}>
-            Confirmar
-          </S.Button>
-        </form>
-      </S.Container>
-    </S.ContainerViewPort>
+            <S.Button type="submit" disabled={!isValid} loading={isSubmitting}>
+              Confirmar
+            </S.Button>
+          </form>
+        </S.Container>
+      </S.ContainerViewPort>
+    </>
   )
 }
 
