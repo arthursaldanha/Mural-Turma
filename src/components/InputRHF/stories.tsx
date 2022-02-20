@@ -1,9 +1,9 @@
 import { Story, Meta } from '@storybook/react'
-import InputFormik from '.'
+import InputRHF from '.'
 
 export default {
   title: 'InputFormik',
-  component: InputFormik
+  component: InputRHF
 } as Meta
 
-export const Default: Story = () => <InputFormik />
+export const Default: Story = () => <InputRHF name="teste" />
