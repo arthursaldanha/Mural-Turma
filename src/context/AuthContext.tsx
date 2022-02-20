@@ -12,6 +12,7 @@ import jwt_decode from 'jwt-decode'
 import { setCookie, destroyCookie } from 'nookies'
 import { User } from '../types/user'
 import { api } from 'services/api'
+import { toast } from 'react-toastify'
 
 type SignInCredentials = {
   username: string
@@ -92,7 +93,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       Router.push('/dashboard')
     } catch (error) {
-      console.log(error)
+      toast.error('Algo de inesperado aconteceu! Por favor, verifique', {
+        theme: 'colored'
+      })
     }
   }
 
