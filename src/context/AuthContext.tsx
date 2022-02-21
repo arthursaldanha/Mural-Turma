@@ -2,7 +2,6 @@ import {
   useState,
   createContext,
   ReactNode,
-  useEffect,
   Dispatch,
   SetStateAction
 } from 'react'
@@ -39,13 +38,13 @@ type AuthProviderProps = {
 
 export const AuthContext = createContext({} as AuthContextData)
 
-let authChannel: BroadcastChannel
+// let authChannel: BroadcastChannel
 
 export function signOut() {
   destroyCookie(undefined, 'muralturma-token')
   destroyCookie(undefined, 'muralturma-user_id')
 
-  authChannel.postMessage('signOut')
+  // authChannel.postMessage('signOut')
 
   Router.push('/')
 }
@@ -55,7 +54,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isLoadingFetch, setIsLoadingFetch] = useState(false)
   const isAuthenticated = !!user
 
-  useEffect(() => {
+  /* useEffect(() => {
     authChannel = new BroadcastChannel('auth')
 
     authChannel.onmessage = (message) => {
@@ -65,7 +64,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         return Router.push('/dashboard')
       }
     }
-  }, [])
+  }, []) */
 
   async function signIn({ username, password }: SignInCredentials) {
     setIsLoadingFetch(true)
@@ -92,7 +91,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       api.defaults.headers.common['Authorization'] = `Bearer ${data}`
 
-      authChannel.postMessage('signInt')
+      // authChannel.postMessage('signInt')
 
       Router.push('/dashboard')
       setIsLoadingFetch(false)
