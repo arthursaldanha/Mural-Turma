@@ -17,8 +17,11 @@ export function handleInputMask(
   const masks = {
     name: (value: string) => value,
     firstName: (value: string) =>
-      value.replace(/[^A-z]+/g, '').replace(/[[\]\\]+/g, ''),
-    lastName: (value: string) => value.replace(/[^A-z]+/g, ''),
+      value
+        .replace(/[^A-zçÇÁÀÃÂáàãâÉÈÊéèêÍÌÎíìîÓÒÔóòôÚÙÛúùû]+/g, '')
+        .replace(/[[\]\\]+/g, ''),
+    lastName: (value: string) =>
+      value.replace(/[^A-zçÇÁÀÃÂáàãâÉÈÊéèêÍÌÎíìîÓÒÔóòôÚÙÛúùû]+/g, ''),
     username: (value: string) => value.replace(/[^a-z0-9._]/gi, ''),
     password: (value: string) => value.replace(/\s+/g, ''),
     email: (value: string) => value.replace(/[^a-z0-9._@]/gi, ''),
