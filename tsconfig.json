@@ -1,0 +1,60 @@
+{
+  "compilerOptions": {
+    "types": [
+      "node",
+      "jest",
+      "@testing-library/jest-dom",
+    ],
+    "target": "es5",
+    "baseUrl": ".",
+    "paths": {
+      "@/domain/*": [
+        "./src/domain/*"
+      ],
+      "@/infra/*": [
+        "./src/infra/*"
+      ],
+      "@main/*": [
+        "./src/main/*"
+      ],
+      "@/presentation/*": [
+        "./src/presentation/*"
+      ],
+      "@/pages/*": [
+        "./src/pages/*"
+      ],
+      "@/shared/*": [
+        "./src/shared/*"
+      ],
+      "@/assets/*": [
+        "./src/assets/*"
+      ]
+    },
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "additional.d.ts",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
