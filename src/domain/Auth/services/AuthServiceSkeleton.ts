@@ -1,13 +1,22 @@
 import { IForgotPassword } from '../models/forgotPassword';
-import { IRecoveryPassword } from '../models/recoveryPassword';
-import { IPromiseSignIn, ISignIn } from '../models/signIn';
-import { ISignUp } from '../models/signUp';
+import { IPromiseSignIn } from '../models/signIn';
 
 export interface AuthServiceSkeleton {
-  signInWithUsername: (signInSchema: ISignIn) => Promise<IPromiseSignIn>;
-  signUp: (signUpSchema: ISignUp) => Promise<void>;
+  signInWithUsername: (
+    username: string,
+    password: string,
+  ) => Promise<IPromiseSignIn>;
+  signUp: (
+    username: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+  ) => Promise<void>;
   forgotPassword: (forgotPasswordSchema: IForgotPassword) => Promise<boolean>;
   recoveryPassword: (
-    recoveryPasswordSchema: IRecoveryPassword,
+    userId: number,
+    password: string,
+    token: string,
   ) => Promise<void>;
 }

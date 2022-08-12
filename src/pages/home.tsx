@@ -16,11 +16,8 @@ const HomePage: NextPage<HomePageProps> = ({ user }) => (
 );
 
 export const getServerSideProps: GetServerSideProps = async context => {
-  const {
-    'muralturma-accessToken': acessToken,
-    'muralturma-refreshToken': refreshToken,
-    'muralturma-user_id': userId,
-  } = parseCookies(context);
+  const { 'muralturma-accessToken': acessToken, 'muralturma-user_id': userId } =
+    parseCookies(context);
 
   if (!acessToken) {
     return {
@@ -34,32 +31,14 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   const accountService = new AccountService(
     httpClient({
-      baseURL: process.env.API_CUSTOMER_URL as string,
+      baseURL: process.env.NEXT_PUBLIC_API_MURAL_URL as string,
       ctx: context,
     }),
   );
 
-  let userAccount: IAccount | null;
-
-  if (acessToken && refreshToken) {
-    try {
-      userAccount = await accountService.findAccount(Number(userId));
-
-      return {
-        props: { user: userAccount },
-      };
-    } catch (error) {
-      return {
-        props: {
-          user: null,
-        },
-        redirect: {
-          destination: '/',
-          permanent: false,
-        },
-      };
-    }
-  }
+  const userAccount: IAccount | null = await accountService.findAccount(
+    Number(userId),
+  );
 
   return {
     props: { user: userAccount! || null },

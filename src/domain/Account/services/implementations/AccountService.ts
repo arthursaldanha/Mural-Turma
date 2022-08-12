@@ -9,7 +9,7 @@ export default class AccountService implements AccountServiceSkeleton {
   }
 
   async findAccount(userId: number) {
-    const { data } = await this.httpClient.get<IAccount>(`v1/user/${userId}`);
+    const { data } = await this.httpClient.get<IAccount>(`/user/${userId}`);
 
     return data;
   }

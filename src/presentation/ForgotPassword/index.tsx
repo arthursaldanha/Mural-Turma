@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useForm } from 'react-hook-form';
 import { MdEmail } from 'react-icons/md';
 
@@ -49,8 +50,8 @@ export const ForgotPasswordPresentation = (): JSX.Element => {
                 placeholder="Email"
                 autoComplete="off"
                 startIcon={<MdEmail size="1.5rem" />}
-                register={register}
-                errors={errors}
+                // register={register}
+                // errors={errors}
                 onInput={(event: React.FormEvent<HTMLInputElement>) =>
                   handleInputMask('email', event)
                 }

@@ -1,13 +1,14 @@
 import { FormEvent, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { FaKey, FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { HiUserCircle } from 'react-icons/hi';
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Head from 'next/head';
 import Link from 'next/link';
 
 import { ISignIn, ISignInForm } from '@/domain/Auth/models/signIn';
-import { Input } from '@/shared/components/InputRHF/styles';
+import { Input } from '@/shared/components/InputRHF';
 import { useAuthContext } from '@/shared/contexts/AuthContext';
 import { handleInputMask } from '@/shared/utils/input/masks';
 import { signInSchema } from '@/shared/validations/main/signIn';
@@ -22,16 +23,15 @@ export const SignInPresentation = (): JSX.Element => {
     register,
     formState: { errors },
     handleSubmit,
-    getValues,
   } = useForm<ISignInForm>({
     mode: 'all',
     reValidateMode: 'onChange',
     resolver: yupResolver(signInSchema),
   });
 
-  const onSubmit = async (data: ISignIn) => {
-    console.log('data :>> ', data);
-    await onSignIn(data);
+  const onSubmit: SubmitHandler<ISignIn> = async ({ username, password }) => {
+    console.log('data :>> ', { username, password });
+    await onSignIn(username, password);
   };
 
   return (
@@ -43,48 +43,20 @@ export const SignInPresentation = (): JSX.Element => {
         <S.Container>
           <form onSubmit={handleSubmit(onSubmit)}>
             <S.ContainerInput>
-              <Input
-                label="username"
-                name="username"
-                type="text"
-                placeholder="Nome de usuário"
-                autoComplete="off"
-                startIcon={<HiUserCircle size="1.5rem" />}
-                register={register}
-                errors={errors}
-                onInput={(event: FormEvent<HTMLInputElement>) =>
-                  handleInputMask('username', event)
-                }
+              <input
+                {...register('username', {
+                  required: 'Please enter your first name.',
+                })}
               />
             </S.ContainerInput>
 
             <S.ContainerInput>
-              <Input
-                label="password"
-                name="password"
-                placeholder="Senha"
-                autoComplete="off"
-                type={isVisible ? 'text' : 'password'}
-                startIcon={<FaKey size="1.4rem" />}
-                endIcon={
-                  isVisible ? (
-                    <FaRegEye
-                      size="1.5rem"
-                      onClick={() => setIsVisibility(!isVisible)}
-                    />
-                  ) : (
-                    <FaRegEyeSlash
-                      size="1.5rem"
-                      onClick={() => setIsVisibility(!isVisible)}
-                    />
-                  )
-                }
-                register={register}
-                errors={errors}
-                onInput={(event: FormEvent<HTMLInputElement>) =>
-                  handleInputMask('password', event)
-                }
+              <input
+                {...register('password', {
+                  required: 'Please enter your first name.',
+                })}
               />
+
               <S.ContainerForgotPassword>
                 <h3 className="title-recoverypassword">
                   <Link href="/forgot_password" passHref>

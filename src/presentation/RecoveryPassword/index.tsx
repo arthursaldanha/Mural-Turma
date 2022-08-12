@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaKey, FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
@@ -34,11 +35,7 @@ export const RecoveryPasswordPresentation = (): JSX.Element => {
   const { token, id } = router.query;
 
   const onSubmit = async ({ password }: IRecoveryPasswordForm) => {
-    onRecoveryPassword({
-      id: Number(id),
-      password,
-      token: String(token),
-    });
+    onRecoveryPassword(Number(id), password, String(token));
   };
 
   return (
@@ -70,8 +67,8 @@ export const RecoveryPasswordPresentation = (): JSX.Element => {
                     />
                   )
                 }
-                register={register}
-                errors={errors}
+                // register={register}
+                // errors={errors}
                 onInput={(event: React.FormEvent<HTMLInputElement>) =>
                   handleInputMask('password', event)
                 }
@@ -103,8 +100,8 @@ export const RecoveryPasswordPresentation = (): JSX.Element => {
                     />
                   )
                 }
-                register={register}
-                errors={errors}
+                // register={register}
+                // errors={errors}
                 onInput={(event: React.FormEvent<HTMLInputElement>) =>
                   handleInputMask('password', event)
                 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FaKey, FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
@@ -40,7 +41,14 @@ export const SignUpPresentation = (): JSX.Element => {
     email,
     password,
   }: ISignUpForm) => {
-    await onSignUp({ username, firstName, lastName, email, password });
+    console.log('data :>> ', {
+      username,
+      firstName,
+      lastName,
+      email,
+      password,
+    });
+    await onSignUp(username, firstName, lastName, email, password);
   };
 
   return (
@@ -52,128 +60,50 @@ export const SignUpPresentation = (): JSX.Element => {
         <S.Container>
           <form onSubmit={handleSubmit(onSubmit)}>
             <S.ContainerInput>
-              <Input
-                label="username"
-                name="username"
-                type="text"
-                placeholder="Nome de usuário"
-                autoComplete="off"
-                startIcon={<MdAlternateEmail size="1.5rem" />}
-                register={register}
-                errors={errors}
-                onInput={(event: React.FormEvent<HTMLInputElement>) =>
-                  handleInputMask('username', event)
-                }
+              <input
+                {...register('username', {
+                  required: 'Please enter your first name.',
+                })}
               />
             </S.ContainerInput>
 
             <S.ContainerInput>
-              <Input
-                label="firstName"
-                name="firstName"
-                type="text"
-                placeholder="Nome"
-                autoComplete="off"
-                startIcon={<HiUserCircle size="1.5rem" />}
-                register={register}
-                errors={errors}
-                onInput={(event: React.FormEvent<HTMLInputElement>) =>
-                  handleInputMask('firstName', event)
-                }
+              <input
+                {...register('firstName', {
+                  required: 'Please enter your first name.',
+                })}
               />
             </S.ContainerInput>
 
             <S.ContainerInput>
-              <Input
-                label="lastName"
-                name="lastName"
-                type="text"
-                placeholder="Sobrenome"
-                autoComplete="off"
-                startIcon={<HiUserCircle size="1.5rem" />}
-                register={register}
-                errors={errors}
-                onInput={(event: React.FormEvent<HTMLInputElement>) =>
-                  handleInputMask('lastName', event)
-                }
+              <input
+                {...register('lastName', {
+                  required: 'Please enter your first name.',
+                })}
               />
             </S.ContainerInput>
 
             <S.ContainerInput>
-              <Input
-                label="email"
-                name="email"
-                type="text"
-                placeholder="Email"
-                autoComplete="off"
-                startIcon={<MdEmail size="1.5rem" />}
-                register={register}
-                errors={errors}
-                onInput={(event: React.FormEvent<HTMLInputElement>) =>
-                  handleInputMask('email', event)
-                }
+              <input
+                {...register('email', {
+                  required: 'Please enter your first name.',
+                })}
               />
             </S.ContainerInput>
 
             <S.ContainerInput>
-              <Input
-                label="password"
-                name="password"
-                placeholder="Digite uma senha"
-                autoComplete="off"
-                type={isVisiblePassword ? 'text' : 'password'}
-                startIcon={<FaKey size="1.3rem" />}
-                endIcon={
-                  isVisiblePassword ? (
-                    <FaRegEye
-                      size="1.5rem"
-                      onClick={() => setIsVisiblePassword(!isVisiblePassword)}
-                    />
-                  ) : (
-                    <FaRegEyeSlash
-                      size="1.5rem"
-                      onClick={() => setIsVisiblePassword(!isVisiblePassword)}
-                    />
-                  )
-                }
-                register={register}
-                errors={errors}
-                onInput={(event: React.FormEvent<HTMLInputElement>) =>
-                  handleInputMask('password', event)
-                }
+              <input
+                {...register('password', {
+                  required: 'Please enter your first name.',
+                })}
               />
             </S.ContainerInput>
 
             <S.ContainerInput>
-              <Input
-                label="passwordConfirmation"
-                name="passwordConfirmation"
-                placeholder="Confirme sua senha"
-                autoComplete="off"
-                type={isVisibleConfirmPassword ? 'text' : 'password'}
-                startIcon={<FaKey size="1.3rem" />}
-                endIcon={
-                  isVisibleConfirmPassword ? (
-                    <FaRegEye
-                      size="1.5rem"
-                      onClick={() =>
-                        setIsVisibleConfirmPassword(!isVisibleConfirmPassword)
-                      }
-                    />
-                  ) : (
-                    <FaRegEyeSlash
-                      size="1.5rem"
-                      onClick={() =>
-                        setIsVisibleConfirmPassword(!isVisibleConfirmPassword)
-                      }
-                    />
-                  )
-                }
-                register={register}
-                errors={errors}
-                onInput={(event: React.FormEvent<HTMLInputElement>) =>
-                  handleInputMask('password', event)
-                }
+              <input
+                {...register('passwordConfirmation', {
+                  required: 'Please enter your first name.',
+                })}
               />
             </S.ContainerInput>
             <S.Button

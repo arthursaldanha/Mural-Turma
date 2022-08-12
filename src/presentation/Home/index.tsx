@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { HomePageProps } from '@/pages/home';
 import { useAuthContext } from '@/shared/contexts/AuthContext';
 

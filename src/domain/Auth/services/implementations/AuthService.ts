@@ -11,36 +11,46 @@ export default class AuthService implements AuthServiceSkeleton {
     this.httpClient = httpClient;
   }
 
-  async signInWithUsername(signInSchema: ISignIn) {
-    const { data } = await this.httpClient.post<IPromiseSignIn>('/v1/login', {
-      signInSchema,
+  async signInWithUsername(username: string, password: string) {
+    const { data } = await this.httpClient.post<IPromiseSignIn>('/login', {
+      username,
+      password,
     });
 
     return data;
   }
 
-  async signUp(signUpSchema: ISignUp) {
-    const { data } = await this.httpClient.post('/api/v1/user/signup', {
-      signUpSchema,
+  async signUp(
+    username: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+  ) {
+    const { data } = await this.httpClient.post('/user/signup', {
+      username,
+      firstName,
+      lastName,
+      email,
+      password,
     });
 
     return data;
   }
 
   async forgotPassword(forgotPasswordSchema: IForgotPassword) {
-    const { data } = await this.httpClient.get<boolean>(
-      '/api/v1/user/recovery',
-      {
-        params: { email: forgotPasswordSchema },
-      },
-    );
+    const { data } = await this.httpClient.get<boolean>('/user/recovery', {
+      params: { email: forgotPasswordSchema },
+    });
 
     return data;
   }
 
-  async recoveryPassword(recoveryPasswordSchema: IRecoveryPassword) {
-    const { data } = await this.httpClient.post('/api/v1/user/recovery', {
-      recoveryPasswordSchema,
+  async recoveryPassword(userId: number, password: string, token: string) {
+    const { data } = await this.httpClient.post('/user/recovery', {
+      userId,
+      password,
+      token,
     });
     return data;
   }

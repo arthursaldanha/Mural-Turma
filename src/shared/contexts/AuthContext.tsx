@@ -11,18 +11,14 @@ import {
 
 import jwt_decode from 'jwt-decode';
 import Router, { useRouter } from 'next/router';
-import { setCookie } from 'nookies';
+import { destroyCookie, setCookie } from 'nookies';
 
 import { IAccount } from '@/domain/Account/models/account';
 import { AccountServiceSkeleton } from '@/domain/Account/services/AccountServiceSkeleton';
 import { IForgotPassword } from '@/domain/Auth/models/forgotPassword';
-import { IRecoveryPassword } from '@/domain/Auth/models/recoveryPassword';
-import { ISignIn } from '@/domain/Auth/models/signIn';
-import { ISignUp } from '@/domain/Auth/models/signUp';
 import { AuthServiceSkeleton } from '@/domain/Auth/services/AuthServiceSkeleton';
 
 import { useToast } from '../hooks/useToast';
-import { destroyCookie } from '../utils/cookie';
 
 type tokenDecodedTypes = IAccount & {
   userId: number;
@@ -43,18 +39,24 @@ interface AuthContextData {
   account: IAccount | null;
   isAuthenticated: boolean;
   isLoadingFetch: boolean;
-  onSignIn: (credentials: ISignIn) => void;
+  onSignIn: (username: string, password: string) => void;
   onSignOut: () => void;
-  onSignUp: (signUpSchema: ISignUp) => void;
+  onSignUp: (
+    username: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+  ) => void;
   onForgotPassword: (forgotPasswordSchema: IForgotPassword) => void;
-  onRecoveryPassword: (recoveryPasswordSchema: IRecoveryPassword) => void;
+  onRecoveryPassword: (userId: number, password: string, token: string) => void;
   setAccount: Dispatch<SetStateAction<IAccount | null>>;
 }
 
 export const onForceLogout = () => {
-  destroyCookie('muralturma-accessToken');
-  destroyCookie('muralturma-refreshToken');
-  destroyCookie('muralturma-user_id');
+  destroyCookie(undefined, 'muralturma-accessToken');
+  destroyCookie(undefined, 'muralturma-refreshToken');
+  destroyCookie(undefined, 'muralturma-user_id');
 
   Router.push('/');
 };
@@ -83,10 +85,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   const { toast } = useToast();
 
   const onSignIn = useCallback(
-    async (signInSchema: ISignIn) => {
+    async (username: string, password: string) => {
       try {
         setIsLoadingFetch(true);
-        const data = await authService.signInWithUsername(signInSchema);
+        const data = await authService.signInWithUsername(username, password);
 
         const { accessToken, refreshToken } = data;
 
@@ -122,13 +124,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   );
 
   const onSignUp = useCallback(
-    async (signUpSchema: ISignUp) => {
+    async (
+      username: string,
+      firstName: string,
+      lastName: string,
+      email: string,
+      password: string,
+    ) => {
       try {
         setIsLoadingFetch(true);
-        await authService.signUp(signUpSchema);
+        await authService.signUp(
+          username,
+          firstName,
+          lastName,
+          email,
+          password,
+        );
 
         toast({
-          type: 'success',
+          type: 'sucess',
           title: 'Cadastro realizado!',
           subTitle: 'Verifique o seu e-mail para confirmar a conta.',
         });
@@ -156,7 +170,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
         await authService.forgotPassword(forgotPasswordSchema);
 
         toast({
-          type: 'success',
+          type: 'sucess',
           title: 'Pedido de alteração realizado!',
           subTitle: 'Verifique o seu e-mail para alterar a senha.',
         });
@@ -178,13 +192,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   );
 
   const onRecoveryPassword = useCallback(
-    async (recoveryPasswordSchema: IRecoveryPassword) => {
+    async (userId: number, password: string, token: string) => {
       try {
         setIsLoadingFetch(true);
-        await authService.recoveryPassword(recoveryPasswordSchema);
+        await authService.recoveryPassword(userId, password, token);
 
         toast({
-          type: 'success',
+          type: 'sucess',
           title: 'Sucesso!',
           subTitle: 'Sua senha foi alterada com sucesso.',
         });
@@ -207,9 +221,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   );
 
   const onSignOut = useCallback(() => {
-    destroyCookie('muralturma-accessToken');
-    destroyCookie('muralturma-refreshToken');
-    destroyCookie('muralturma-user_id');
+    destroyCookie(undefined, 'muralturma-accessToken');
+    destroyCookie(undefined, 'muralturma-refreshToken');
+    destroyCookie(undefined, 'muralturma-user_id');
     setAccount(null);
   }, [setAccount]);
 
