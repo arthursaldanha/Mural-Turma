@@ -1,8 +1,9 @@
-import styled, { css } from 'styled-components'
-import { TextProps } from 'types'
+import styled, { css } from 'styled-components';
 
-export const TextComponent = styled.label<TextProps>`
-  ${({ theme, variant, fontFamily, weight, color }) => css`
+import { TextProps } from '@/shared/types';
+
+export const TextComponent = styled.span<TextProps>`
+  ${({ theme, variant, fontFamily, weight, color, textAlign }) => css`
     font-size: ${variant
       ? theme.typography.fontSizes[variant]
       : theme.typography.fontSizes.xxxsmall};
@@ -15,12 +16,8 @@ export const TextComponent = styled.label<TextProps>`
       ? theme.typography.fontFamily[fontFamily]
       : theme.typography.fontFamily.Inter};
 
-    color: ${color === 'black'
-      ? theme.colors.main.text.onPrimary.high
-      : color === 'whiteDisabled'
-      ? theme.colors.main.text.onSurface.disabled
-      : color === 'whiteMedium'
-      ? theme.colors.main.text.onSurface.medium
-      : theme.colors.main.text.onSurface.high};
+    color: ${color || theme.colors.main.text.onSurface.high};
+
+    text-align: ${textAlign || 'start'};
   `}
-`
+`;

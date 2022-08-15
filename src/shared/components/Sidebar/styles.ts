@@ -1,10 +1,11 @@
+import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
 
-interface ISidebar {
+export interface ISidebarComponentProps {
   isOpen: boolean;
 }
 
-export const WrapperSidebar = styled.aside<ISidebar>`
+export const WrapperSidebar = styled(motion.aside)<ISidebarComponentProps>`
   ${({ theme: { colors }, isOpen }) => css`
     width: ${isOpen ? '250px' : '88px'};
     height: 100%;
@@ -69,13 +70,17 @@ export const WrapperSidebar = styled.aside<ISidebar>`
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        overflow: hidden;
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
       }
     }
   `}
 `;
 
-export const UnorderedList = styled.li`
+export const UnorderedList = styled(motion.li)`
   height: 50px;
   list-style: none;
   display: flex;
@@ -83,58 +88,16 @@ export const UnorderedList = styled.li`
   margin-top: 10px;
 `;
 
-export const SidebarItem = styled(UnorderedList)<ISidebar>`
-  ${({ theme: { colors }, isOpen }) => css`
-    > a {
-      align-items: center;
-      background-color: transparent;
-      border-radius: 6px;
-      cursor: pointer;
-      display: flex;
-      height: 100%;
-      list-style: none;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      width: 100%;
-
-      &:hover {
-        background-color: ${colors.main.primary};
-
-        span,
-        > div > svg {
-          color: ${colors.main.background.overlay.xxsmalldp};
-        }
-      }
-
-      > div {
-        align-items: center;
-        border-radius: 6px;
-        display: flex;
-        font-size: 20px;
-        height: 100%;
-        justify-content: center;
-        min-width: 60px;
-
-        > svg {
-          width: 40px;
-          color: ${colors.main.primary};
-        }
-      }
-
-      span {
-        color: ${colors.main.text.onSurface.high};
-        font-family: 'Inter';
-        font-size: 17px;
-        font-weight: 500;
-        opacity: ${isOpen ? '1' : '0'};
-        transition: all 0.3s ease;
-        white-space: nowrap;
-      }
-    }
-  `}
+export const WrapperIcon = styled.div`
+  min-width: 60px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
 `;
 
-export const LogoutUser = styled(UnorderedList)<ISidebar>`
+export const LogoutUser = styled(UnorderedList)<ISidebarComponentProps>`
   ${({ theme: { colors }, isOpen }) => css`
     > nav {
       align-items: center;
@@ -157,20 +120,6 @@ export const LogoutUser = styled(UnorderedList)<ISidebar>`
         }
       }
 
-      > div {
-        min-width: 60px;
-        border-radius: 6px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-
-        > svg {
-          width: 40px;
-          color: ${colors.others.red300};
-        }
-      }
-
       > span {
         color: ${colors.main.text.onSurface.high};
         font-family: 'Inter';
@@ -180,6 +129,15 @@ export const LogoutUser = styled(UnorderedList)<ISidebar>`
         transition: all 0.3s ease;
         white-space: nowrap;
       }
+    }
+  `}
+`;
+
+export const WrapperLogoutIcon = styled(WrapperIcon)`
+  ${({ theme: { colors } }) => css`
+    > svg {
+      width: 40px;
+      color: ${colors.others.red300};
     }
   `}
 `;

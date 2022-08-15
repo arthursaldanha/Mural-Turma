@@ -48,8 +48,8 @@ interface AuthContextData {
     email: string,
     password: string,
   ) => void;
-  onForgotPassword: (forgotPasswordSchema: IForgotPassword) => void;
-  onRecoveryPassword: (userId: number, password: string, token: string) => void;
+  onForgotPassword: (string: string) => void;
+  onRecoveryPassword: (id: number, password: string, token: string) => void;
   setAccount: Dispatch<SetStateAction<IAccount | null>>;
 }
 
@@ -164,10 +164,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   );
 
   const onForgotPassword = useCallback(
-    async (forgotPasswordSchema: IForgotPassword) => {
+    async (email: string) => {
       try {
         setIsLoadingFetch(true);
-        await authService.forgotPassword(forgotPasswordSchema);
+        await authService.forgotPassword(email);
 
         toast({
           type: 'sucess',
@@ -192,10 +192,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
   );
 
   const onRecoveryPassword = useCallback(
-    async (userId: number, password: string, token: string) => {
+    async (id: number, password: string, token: string) => {
       try {
         setIsLoadingFetch(true);
-        await authService.recoveryPassword(userId, password, token);
+        await authService.recoveryPassword(id, password, token);
 
         toast({
           type: 'sucess',
@@ -225,7 +225,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     destroyCookie(undefined, 'muralturma-refreshToken');
     destroyCookie(undefined, 'muralturma-user_id');
     setAccount(null);
-  }, [setAccount]);
+
+    push('/');
+  }, [setAccount, push]);
 
   const value = useMemo(() => {
     return {

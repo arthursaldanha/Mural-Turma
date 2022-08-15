@@ -1,0 +1,44 @@
+useEffect(() => {
+    data?.pages.map(page =>
+      page.content.map(post => setCardsPost(prev => [...prev, post])),
+    );
+  }, [data]);
+
+  useEffect(() => {
+    console.log('cardsPost :>> ', cardsPost);
+  }, [cardsPost]);
+
+  const Row = ({
+    index,
+    style,
+  }: {
+    index: number;
+    style: React.CSSProperties;
+  }) => {
+    const post = cardsPost[index];
+
+    console.log(post);
+
+    return (
+      <motion.div
+        variants={itemAnimation}
+        key={post.id}
+        style={{ ...style, display: 'flex' }}
+      >
+        <CardPosts post={post} />
+      </motion.div>
+    );
+  };
+
+<AutoSizer>
+          {({ height, width }) => (
+            <FixedSizeList
+              height={164}
+              itemCount={cardsPost.length}
+              itemSize={35}
+              width={width}
+            >
+              {Row}
+            </FixedSizeList>
+          )}
+        </AutoSizer>

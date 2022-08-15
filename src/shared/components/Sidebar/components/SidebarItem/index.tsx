@@ -1,12 +1,46 @@
-import { UnorderedList } from '../../styles';
+import { Icon as Iconsax } from 'iconsax-react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-export const SidebarItem = () => {
+import Text from '@/shared/components/Text';
+
+import { sidebarItemAnimation } from '../../animations';
+import { WrapperSidebarIcon, WrapperSidebarItem } from './styles';
+
+interface ISidebarItem {
+  isOpen: boolean;
+  title: string;
+  Icon: Iconsax;
+  path: string;
+}
+
+export const SidebarItem: React.FC<ISidebarItem> = ({
+  isOpen,
+  title,
+  Icon,
+  path,
+}) => {
+  const { pathname } = useRouter();
+
+  const isActiveRouter = (route: string) => {
+    return pathname.includes(route);
+  };
+
   return (
-    <UnorderedList className="">
-      <a href="#">
-        <i className="bx bx-log-out icon" />
-        <span className="text nav-text">Logout</span>
-      </a>
-    </UnorderedList>
+    <WrapperSidebarItem isOpen={isOpen} variants={sidebarItemAnimation}>
+      <Link href={path} passHref>
+        <a>
+          <WrapperSidebarIcon>
+            <Icon
+              size="24"
+              variant={isActiveRouter(path) ? 'Bold' : 'Outline'}
+            />
+          </WrapperSidebarIcon>
+          <Text variant="xxxxsmall" fontFamily="Inter" weight="medium">
+            {title}
+          </Text>
+        </a>
+      </Link>
+    </WrapperSidebarItem>
   );
 };

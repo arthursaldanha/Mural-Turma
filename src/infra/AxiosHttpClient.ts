@@ -10,10 +10,10 @@ import { onForceLogout } from '@/shared/contexts/AuthContext';
 interface HttpClientProps {
   baseURL: string;
   ctx?:
-  | NextPageContext
-  | GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
-  | null
-  | undefined;
+    | NextPageContext
+    | GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
+    | null
+    | undefined;
 }
 
 let isRefreshing = false;
@@ -68,9 +68,17 @@ export const httpClient = ({ baseURL, ctx }: HttpClientProps) => {
           isRefreshing = true;
 
           api
-            .post(`/api/v1/user/refreshtoken`, {
-              refreshToken: cookies['muralturma-refreshToken'],
-            })
+            .post(
+              `/user/refreshtoken`,
+              {
+                refreshToken: cookies['muralturma-refreshToken'],
+              },
+              {
+                headers: {
+                  Authorization: '',
+                },
+              },
+            )
             .then(response => {
               const { accessToken, refreshToken } = response.data;
 

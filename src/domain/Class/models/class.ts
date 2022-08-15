@@ -1,4 +1,4 @@
-interface IClassList {
+interface IClass {
   id: number;
   year: number;
   semester: number;
@@ -12,4 +12,4 @@ interface ICourse {
   semesters: number;
 }
 
-export { type IClassList };
+export { type IClass };

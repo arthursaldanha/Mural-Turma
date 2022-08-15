@@ -1,36 +1,43 @@
-import { FormEvent, useState } from 'react';
+/* eslint-disable react/no-children-prop */
+import { useState } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { FaKey, FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { HiUserCircle } from 'react-icons/hi';
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import Head from 'next/head';
 import Link from 'next/link';
 
 import { ISignIn, ISignInForm } from '@/domain/Auth/models/signIn';
-import { Input } from '@/shared/components/InputRHF';
+import { Input } from '@/shared/components/Input';
+import { ErrorMessageValidation } from '@/shared/components/Input/styles';
 import { useAuthContext } from '@/shared/contexts/AuthContext';
-import { handleInputMask } from '@/shared/utils/input/masks';
 import { signInSchema } from '@/shared/validations/main/signIn';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import * as S from './styles';
 
 export const SignInPresentation = (): JSX.Element => {
-  const [isVisible, setIsVisibility] = useState(false);
   const { isLoadingFetch, onSignIn } = useAuthContext();
+
   const {
-    register,
-    formState: { errors },
     handleSubmit,
+    control,
+    formState: { errors },
   } = useForm<ISignInForm>({
     mode: 'all',
     reValidateMode: 'onChange',
     resolver: yupResolver(signInSchema),
+    defaultValues: {
+      username: '',
+      password: '',
+    },
   });
 
+  const [isShowingPassword, setIsShowingPassword] = useState(false);
+
+  const handleChange = () => setIsShowingPassword(!isShowingPassword);
+
   const onSubmit: SubmitHandler<ISignIn> = async ({ username, password }) => {
-    console.log('data :>> ', { username, password });
     await onSignIn(username, password);
   };
 
@@ -43,18 +50,67 @@ export const SignInPresentation = (): JSX.Element => {
         <S.Container>
           <form onSubmit={handleSubmit(onSubmit)}>
             <S.ContainerInput>
-              <input
-                {...register('username', {
-                  required: 'Please enter your first name.',
-                })}
+              <Controller
+                control={control}
+                name="username"
+                render={({ field: { onChange } }) => {
+                  return (
+                    <>
+                      <Input
+                        type="text"
+                        placeholder="Nome de usuário"
+                        autoComplete="off"
+                        startIcon={<HiUserCircle size={20} color="#fff" />}
+                        onChange={onChange}
+                        error={!!errors?.username?.message}
+                      />
+                      {errors?.username && (
+                        <ErrorMessageValidation>
+                          {errors?.username?.message}
+                        </ErrorMessageValidation>
+                      )}
+                    </>
+                  );
+                }}
               />
             </S.ContainerInput>
 
             <S.ContainerInput>
-              <input
-                {...register('password', {
-                  required: 'Please enter your first name.',
-                })}
+              <Controller
+                control={control}
+                name="password"
+                render={({ field: { onChange } }) => (
+                  <>
+                    <Input
+                      type={isShowingPassword ? 'text' : 'password'}
+                      placeholder="Senha"
+                      autoComplete="off"
+                      startIcon={<FaKey size={20} color="#fff" />}
+                      endIcon={
+                        isShowingPassword ? (
+                          <FaRegEye
+                            size={20}
+                            color="#fff"
+                            onClick={handleChange}
+                          />
+                        ) : (
+                          <FaRegEyeSlash
+                            size={20}
+                            color="#fff"
+                            onClick={handleChange}
+                          />
+                        )
+                      }
+                      onChange={onChange}
+                      error={!!errors?.password?.message}
+                    />
+                    {errors?.password && (
+                      <ErrorMessageValidation>
+                        {errors?.password?.message}
+                      </ErrorMessageValidation>
+                    )}
+                  </>
+                )}
               />
 
               <S.ContainerForgotPassword>

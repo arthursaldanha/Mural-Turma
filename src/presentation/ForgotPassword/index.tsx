@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useForm } from 'react-hook-form';
-import { MdEmail } from 'react-icons/md';
+import { Controller, useForm } from 'react-hook-form';
+import { MdAlternateEmail } from 'react-icons/md';
 
 import Head from 'next/head';
 import Link from 'next/link';
 
-import { Input } from '@/shared/components/InputRHF/styles';
+import { Input } from '@/shared/components/Input';
+import { ErrorMessageValidation } from '@/shared/components/Input/styles';
 import { useAuthContext } from '@/shared/contexts/AuthContext';
-import { handleInputMask } from '@/shared/utils/input/masks';
 import { forgotPasswordSchema } from '@/shared/validations/main/forgotPassword';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -21,7 +20,7 @@ export const ForgotPasswordPresentation = (): JSX.Element => {
   const { isLoadingFetch, onForgotPassword } = useAuthContext();
 
   const {
-    register,
+    control,
     formState: { errors, isValid },
     handleSubmit,
   } = useForm<ForgotPasswordFormTypes>({
@@ -31,7 +30,7 @@ export const ForgotPasswordPresentation = (): JSX.Element => {
   });
 
   const onSubmit = async ({ email }: ForgotPasswordFormTypes) => {
-    await onForgotPassword({ email });
+    await onForgotPassword(email);
   };
 
   return (
@@ -43,18 +42,29 @@ export const ForgotPasswordPresentation = (): JSX.Element => {
         <S.Container>
           <form onSubmit={handleSubmit(onSubmit)}>
             <S.ContainerInput>
-              <Input
-                label="email"
+              <Controller
+                control={control}
                 name="email"
-                type="text"
-                placeholder="Email"
-                autoComplete="off"
-                startIcon={<MdEmail size="1.5rem" />}
-                // register={register}
-                // errors={errors}
-                onInput={(event: React.FormEvent<HTMLInputElement>) =>
-                  handleInputMask('email', event)
-                }
+                render={({ field: { onChange } }) => {
+                  return (
+                    <>
+                      <Input
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        autoComplete="off"
+                        startIcon={<MdAlternateEmail size={20} color="#fff" />}
+                        onChange={onChange}
+                        error={!!errors?.email?.message}
+                      />
+                      {errors?.email && (
+                        <ErrorMessageValidation>
+                          {errors?.email?.message}
+                        </ErrorMessageValidation>
+                      )}
+                    </>
+                  );
+                }}
               />
             </S.ContainerInput>
 

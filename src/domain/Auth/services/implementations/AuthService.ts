@@ -38,17 +38,17 @@ export default class AuthService implements AuthServiceSkeleton {
     return data;
   }
 
-  async forgotPassword(forgotPasswordSchema: IForgotPassword) {
+  async forgotPassword(email: string) {
     const { data } = await this.httpClient.get<boolean>('/user/recovery', {
-      params: { email: forgotPasswordSchema },
+      params: { email },
     });
 
     return data;
   }
 
-  async recoveryPassword(userId: number, password: string, token: string) {
+  async recoveryPassword(id: number, password: string, token: string) {
     const { data } = await this.httpClient.post('/user/recovery', {
-      userId,
+      id,
       password,
       token,
     });

@@ -1,4 +1,4 @@
-import { IClassList } from '@/domain/Class/models/class';
+import { IClass } from '@/domain/Class/models/class';
 
 interface IAccount {
   id: number;
@@ -8,7 +8,7 @@ interface IAccount {
   email: string;
   avatar: null;
   role: 'USER' | 'ADMIN' | 'SUPERUSER';
-  classList: IClassList[];
+  classList: IClass[];
 }
 
 export { type IAccount };

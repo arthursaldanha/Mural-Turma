@@ -1,4 +1,3 @@
-import { IForgotPassword } from '../models/forgotPassword';
 import { IPromiseSignIn } from '../models/signIn';
 
 export interface AuthServiceSkeleton {
@@ -13,9 +12,9 @@ export interface AuthServiceSkeleton {
     email: string,
     password: string,
   ) => Promise<void>;
-  forgotPassword: (forgotPasswordSchema: IForgotPassword) => Promise<boolean>;
+  forgotPassword: (email: string) => Promise<boolean>;
   recoveryPassword: (
-    userId: number,
+    id: number,
     password: string,
     token: string,
   ) => Promise<void>;

@@ -6,7 +6,7 @@ interface IRecoveryPassword {
 
 interface IRecoveryPasswordForm {
   password: string;
-  repeatPassword: string;
+  passwordConfirmation: string;
 }
 
 export { type IRecoveryPassword, type IRecoveryPasswordForm };

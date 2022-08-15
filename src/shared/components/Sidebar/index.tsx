@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BsArrowRightShort } from 'react-icons/bs';
 
+import { motion } from 'framer-motion';
 import {
   Home2,
   Notification,
@@ -9,11 +10,23 @@ import {
   Setting2,
   Logout,
 } from 'iconsax-react';
-import Link from 'next/link';
 
 import { useAuthContext } from '@/shared/contexts/AuthContext';
 
-import { LogoutUser, SidebarItem, WrapperSidebar } from './styles';
+import {
+  logoSidebarAnimation,
+  sidebarItemAnimation,
+  wrapperSidebarAnimation,
+} from './animations';
+import { SidebarItem } from './components/SidebarItem';
+import { LogoutUser, WrapperLogoutIcon, WrapperSidebar } from './styles';
+
+const itemsSidebar = [
+  { title: 'Página Inicial', Icon: Home2, path: '/home' },
+  { title: 'Favoritos', Icon: Star1, path: '/favorites' },
+  { title: 'Notificações', Icon: Notification, path: '/notifications' },
+  { title: 'Suas atividades', Icon: Clock, path: '/your-activity' },
+];
 
 export const Sidebar = () => {
   const { onSignOut } = useAuthContext();
@@ -25,14 +38,19 @@ export const Sidebar = () => {
   };
 
   return (
-    <WrapperSidebar isOpen={isSidebarOpen}>
-      <nav className="sidebar close">
+    <WrapperSidebar
+      isOpen={isSidebarOpen}
+      initial="hidden"
+      animate="visible"
+      variants={wrapperSidebarAnimation}
+    >
+      <nav>
         <header>
-          <div className="image-text">
-            <span className="image">
+          <motion.div variants={logoSidebarAnimation}>
+            <span>
               <img src="/images/logo.svg" alt="Logo" />
             </span>
-          </div>
+          </motion.div>
 
           <div onClick={toggleSidebar}>
             <BsArrowRightShort size="32" />
@@ -42,69 +60,35 @@ export const Sidebar = () => {
         <div>
           <div>
             <ul>
-              <SidebarItem isOpen={isSidebarOpen}>
-                <Link href="/home" passHref>
-                  <a>
-                    <div>
-                      <Home2 size="24" />
-                    </div>
-                    <span className="text nav-text">Página Inicial</span>
-                  </a>
-                </Link>
-              </SidebarItem>
-
-              <SidebarItem isOpen={isSidebarOpen}>
-                <Link href="/favorites" passHref>
-                  <a>
-                    <div>
-                      <Star1 size="24" />
-                    </div>
-                    <span>Favoritos</span>
-                  </a>
-                </Link>
-              </SidebarItem>
-
-              <SidebarItem isOpen={isSidebarOpen} className="">
-                <Link href="/notifications" passHref>
-                  <a>
-                    <div>
-                      <Notification size="24" />
-                    </div>
-                    <span>Notificações</span>
-                  </a>
-                </Link>
-              </SidebarItem>
-
-              <SidebarItem isOpen={isSidebarOpen}>
-                <Link href="/your-activity" passHref>
-                  <a>
-                    <div>
-                      <Clock size="24" />
-                    </div>
-                    <span>Suas atividades</span>
-                  </a>
-                </Link>
-              </SidebarItem>
+              {itemsSidebar.map(({ title, Icon, path }) => (
+                <SidebarItem
+                  key={title}
+                  isOpen={isSidebarOpen}
+                  title={title}
+                  Icon={Icon}
+                  path={path}
+                />
+              ))}
             </ul>
           </div>
 
           <ul>
-            <SidebarItem isOpen={isSidebarOpen}>
-              <Link href="/your-activity" passHref>
-                <a>
-                  <div>
-                    <Setting2 size="24" />
-                  </div>
-                  <span>Suas atividades</span>
-                </a>
-              </Link>
-            </SidebarItem>
+            <SidebarItem
+              isOpen={isSidebarOpen}
+              title="Configurações"
+              Icon={Setting2}
+              path="/settings"
+            />
 
-            <LogoutUser isOpen={isSidebarOpen} onClick={onSignOut}>
+            <LogoutUser
+              isOpen={isSidebarOpen}
+              onClick={onSignOut}
+              variants={sidebarItemAnimation}
+            >
               <nav>
-                <div>
+                <WrapperLogoutIcon>
                   <Logout size="24" />
-                </div>
+                </WrapperLogoutIcon>
                 <span>Sair</span>
               </nav>
             </LogoutUser>

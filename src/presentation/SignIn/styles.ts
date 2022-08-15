@@ -32,6 +32,8 @@ export const Container = styled.div`
 `;
 
 export const ContainerInput = styled.div`
+  display: flex;
+  flex-direction: column;
   margin-bottom: 15px;
 `;
 

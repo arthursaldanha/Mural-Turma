@@ -1,3 +1,5 @@
+import { WrapperHeader } from './styles';
+
 export const Header = () => {
-  return <div>Header</div>;
+  return <WrapperHeader>Header</WrapperHeader>;
 };
