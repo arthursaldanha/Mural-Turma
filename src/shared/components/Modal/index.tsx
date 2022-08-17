@@ -2,8 +2,7 @@ import { ReactNode } from 'react';
 
 import { CloseCircle } from 'iconsax-react';
 
-import { Modal as UiKitModal } from '@develop-fapp/ui-kit-fapp';
-
+import { Modal as ModalComponent } from './components';
 import { Wrapper } from './styles';
 
 interface ModalProps {
@@ -34,6 +33,10 @@ export const Modal: React.FC<ModalProps> = ({
   );
 
   return (
-    <UiKitModal open={isOpen} onClose={onClose} modalContent={modalContent} />
+    <ModalComponent
+      open={isOpen}
+      onClose={onClose}
+      modalContent={modalContent}
+    />
   );
 };

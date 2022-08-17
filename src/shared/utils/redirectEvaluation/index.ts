@@ -10,10 +10,10 @@ export const redirectEvaluationByAccount = (
   ctx:
     | Pick<NextPageContext, 'req'>
     | {
-      req: NextApiRequest;
-    },
+        req: NextApiRequest;
+      },
 ): IRedirectUserNoAccount => {
-  const { 'fapp.account': account } = parseCookies(ctx);
+  const { 'mmuralturma-accessTokenuda': account } = parseCookies(ctx);
   if (!account) {
     return {
       haveAccount: false,

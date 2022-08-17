@@ -5,11 +5,11 @@ import { SkeletonProps } from '.';
 const loading = css`
   ${({ theme: { colors } }) => keyframes`
     0%  {
-      background-color: ${colors.grey5};
+      background-color: ${colors.others.gray400};
     }
 
     100% {
-      background-color: ${colors.grey6};
+      background-color: ${colors.others.gray500};
     }
   `}
 `;
@@ -20,7 +20,7 @@ export const Wrapper = styled.div<SkeletonProps>`
     max-width: 100%;
     height: ${height};
     margin: ${margin};
-    background: ${colors.grey5};
+    background: ${colors.others.gray500};
     border-radius: ${borderRadius || (type === 'rectangle' ? '6px' : '50%')};
     animation: ${loading} 1s linear infinite alternate;
   `}

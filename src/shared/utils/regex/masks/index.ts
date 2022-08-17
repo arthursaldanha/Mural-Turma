@@ -44,9 +44,3 @@ export function maskData(value: string) {
 
   return dataWithMask;
 }
-
-export function maskCvv(value: string) {
-  const cvvWithMask = value.replace(/\D+/g, '').replace(/(\d{4})\d+?$/, '$1');
-
-  return cvvWithMask;
-}

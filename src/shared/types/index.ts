@@ -3,6 +3,7 @@ import {
   InputHTMLAttributes,
   LabelHTMLAttributes,
   ReactNode,
+  TextareaHTMLAttributes,
 } from 'react';
 
 export interface FlexboxProps extends HTMLAttributes<HTMLDivElement> {
@@ -103,3 +104,11 @@ export interface TextProps extends LabelHTMLAttributes<HTMLLabelElement> {
     | 'inhetir';
   children: ReactNode | string;
 }
+
+export interface ModalProps {
+  open: boolean;
+  onClose: () => void;
+  modalContent: JSX.Element;
+}
+export type ModalContainerProps = HTMLAttributes<HTMLDivElement>;
+export type TextAreaProps = Input & TextareaHTMLAttributes<HTMLTextAreaElement>;
