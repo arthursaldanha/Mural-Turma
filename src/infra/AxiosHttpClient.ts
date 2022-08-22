@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
+import https from 'https';
 import { GetServerSidePropsContext, NextPageContext, PreviewData } from 'next';
 import Router from 'next/router';
 import { destroyCookie, parseCookies, setCookie } from 'nookies';
@@ -24,6 +25,9 @@ export const httpClient = ({ baseURL, ctx }: HttpClientProps) => {
 
   const api = axios.create({
     baseURL,
+    httpsAgent: new https.Agent({
+      rejectUnauthorized: false,
+    }),
   });
 
   if (cookies['muralturma-accessToken']) {

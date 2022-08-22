@@ -12,10 +12,8 @@ import { queryClient } from '@/infra/ReactQueryClient';
 import { AuthProvider } from '@/shared/contexts/AuthContext';
 import { ToastProvider } from '@/shared/contexts/ToastContext';
 import theme from '@/shared/styles';
-import GlobalStyle from '@/shared/styles/global';
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 
-const themeToChakra = extendTheme({ theme });
+import '@/shared/styles/global.css';
 
 const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
   const accountService = new AccountService(
@@ -39,13 +37,12 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
               showOnShallow
               options={{ showSpinner: false }}
             />
-            <ChakraProvider theme={themeToChakra}>
-              <Component {...pageProps} />
-            </ChakraProvider>
+            {/* <ChakraProvider theme={themeToChakra}> */}
+            {/* </ChakraProvider> */}
+            <Component {...pageProps} />
           </AuthProvider>
         </QueryClientProvider>
       </ToastProvider>
-      <GlobalStyle />
     </ThemeProvider>
   );
 };

@@ -1,11 +1,9 @@
+import { motion } from 'framer-motion';
 import { Icon as Iconsax } from 'iconsax-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import Text from '@/shared/components/Text';
-
 import { sidebarItemAnimation } from '../../animations';
-import { WrapperSidebarIcon, WrapperSidebarItem } from './styles';
 
 interface ISidebarItem {
   isOpen: boolean;
@@ -27,20 +25,28 @@ export const SidebarItem: React.FC<ISidebarItem> = ({
   };
 
   return (
-    <WrapperSidebarItem isOpen={isOpen} variants={sidebarItemAnimation}>
+    <motion.li
+      className="group flex items-center list-none h-[50px] mt-2.5"
+      variants={sidebarItemAnimation}
+    >
       <Link href={path} passHref>
-        <a>
-          <WrapperSidebarIcon>
+        <a className="h-full w-full flex justify-start items-center bg-transparent hover:bg-green-500 rounded-md cursor-pointer list-none decoration-none transition-all duration-300 ease">
+          <div className="flex justify-center items-center rounded-md min-w-[60px] text-xl">
             <Icon
               size="24"
               variant={isActiveRouter(path) ? 'Bold' : 'Outline'}
+              className="w-6 h-6 text-green-500 group-hover:text-zinc-900 transition-all duration-300 ease"
             />
-          </WrapperSidebarIcon>
-          <Text variant="xxxxsmall" fontFamily="Inter" weight="medium">
+          </div>
+          <span
+            className={`text-zinc-100 group-hover:text-zinc-900 text-lg font-inter font-medium ${
+              isOpen ? 'opacity-100' : 'opacity-0'
+            } transition-all duration-300 ease whitespace-nowrap`}
+          >
             {title}
-          </Text>
+          </span>
         </a>
       </Link>
-    </WrapperSidebarItem>
+    </motion.li>
   );
 };

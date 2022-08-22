@@ -7,13 +7,12 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import { IRecoveryPasswordForm } from '@/domain/Auth/models/recoveryPassword';
+import { Loading } from '@/shared/components/Feedback/Loading';
 import { Input } from '@/shared/components/Input';
 import { ErrorMessageValidation } from '@/shared/components/Input/styles';
 import { useAuthContext } from '@/shared/contexts/AuthContext';
 import { recoveryPasswordSchema } from '@/shared/validations/main/recoveryPassword';
 import { yupResolver } from '@hookform/resolvers/yup';
-
-import * as S from './styles';
 
 export const RecoveryPasswordPresentation = (): JSX.Element => {
   const { isLoadingFetch, onRecoveryPassword } = useAuthContext();
@@ -50,10 +49,10 @@ export const RecoveryPasswordPresentation = (): JSX.Element => {
       <Head>
         <title>Recuperar a senha • Mural Turma</title>
       </Head>
-      <S.ContainerViewPort>
-        <S.Container>
+      <div className="min-h-screen min-w-screen py-5 px-2.5 flex justify-center items-center bg-zinc-1000">
+        <div className="max-w-md w-full p-8 bg-zinc-900 rounded-xl">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <S.ContainerInput>
+            <div className="mb-4">
               <Controller
                 control={control}
                 name="password"
@@ -90,9 +89,9 @@ export const RecoveryPasswordPresentation = (): JSX.Element => {
                   </>
                 )}
               />
-            </S.ContainerInput>
+            </div>
 
-            <S.ContainerInput>
+            <div className="mb-4">
               <Controller
                 control={control}
                 name="passwordConfirmation"
@@ -129,18 +128,18 @@ export const RecoveryPasswordPresentation = (): JSX.Element => {
                   </>
                 )}
               />
-            </S.ContainerInput>
+            </div>
 
-            <S.Button
+            <button
               type="submit"
               disabled={!isValid || isLoadingFetch}
-              loading={isLoadingFetch}
+              className="w-full flex justify-center items-center text-zinc-800 bg-green-500 text-base font-inter font-medium rounded-[10px] p-4 transition-all duration-300 ease cursor-pointer disabled:cursor-not-allowed disabled:bg-zinc-600 disabled:text-zinc-400"
             >
-              {isLoadingFetch ? 'Confirmando...' : 'Confirmar'}
-            </S.Button>
+              {isLoadingFetch ? <Loading /> : 'Confirmar'}
+            </button>
           </form>
-        </S.Container>
-      </S.ContainerViewPort>
+        </div>
+      </div>
     </>
   );
 };

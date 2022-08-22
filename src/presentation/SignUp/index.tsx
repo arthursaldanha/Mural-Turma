@@ -8,13 +8,12 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 import { ISignUpForm } from '@/domain/Auth/models/signUp';
+import { Loading } from '@/shared/components/Feedback/Loading';
 import { Input } from '@/shared/components/Input';
 import { ErrorMessageValidation } from '@/shared/components/Input/styles';
 import { useAuthContext } from '@/shared/contexts/AuthContext';
 import { signUpSchema } from '@/shared/validations/main/signUp';
 import { yupResolver } from '@hookform/resolvers/yup';
-
-import * as S from './styles';
 
 export const SignUpPresentation = (): JSX.Element => {
   const { isLoadingFetch, onSignUp } = useAuthContext();
@@ -54,10 +53,10 @@ export const SignUpPresentation = (): JSX.Element => {
       <Head>
         <title>Cadastre-se • Mural Turma</title>
       </Head>
-      <S.ContainerViewPort>
-        <S.Container>
+      <div className="min-h-screen min-w-screen py-5 px-2.5 flex justify-center items-center bg-zinc-1000">
+        <div className="max-w-md w-full p-8 bg-zinc-900 rounded-xl">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <S.ContainerInput>
+            <div className="mb-4">
               <Controller
                 control={control}
                 name="username"
@@ -81,9 +80,9 @@ export const SignUpPresentation = (): JSX.Element => {
                   );
                 }}
               />
-            </S.ContainerInput>
+            </div>
 
-            <S.ContainerInput>
+            <div className="mb-4">
               <Controller
                 control={control}
                 name="firstName"
@@ -107,9 +106,9 @@ export const SignUpPresentation = (): JSX.Element => {
                   );
                 }}
               />
-            </S.ContainerInput>
+            </div>
 
-            <S.ContainerInput>
+            <div className="mb-4">
               <Controller
                 control={control}
                 name="lastName"
@@ -133,9 +132,9 @@ export const SignUpPresentation = (): JSX.Element => {
                   );
                 }}
               />
-            </S.ContainerInput>
+            </div>
 
-            <S.ContainerInput>
+            <div className="mb-4">
               <Controller
                 control={control}
                 name="email"
@@ -159,9 +158,9 @@ export const SignUpPresentation = (): JSX.Element => {
                   );
                 }}
               />
-            </S.ContainerInput>
+            </div>
 
-            <S.ContainerInput>
+            <div className="mb-4">
               <Controller
                 control={control}
                 name="password"
@@ -198,9 +197,9 @@ export const SignUpPresentation = (): JSX.Element => {
                   </>
                 )}
               />
-            </S.ContainerInput>
+            </div>
 
-            <S.ContainerInput>
+            <div className="mb-4">
               <Controller
                 control={control}
                 name="passwordConfirmation"
@@ -237,25 +236,29 @@ export const SignUpPresentation = (): JSX.Element => {
                   </>
                 )}
               />
-            </S.ContainerInput>
-            <S.Button
+            </div>
+
+            <button
               type="submit"
               disabled={!isValid || isLoadingFetch}
-              loading={isLoadingFetch}
+              className="w-full flex justify-center items-center text-zinc-800 bg-green-500 text-base font-inter font-medium rounded-[10px] p-4 transition-all duration-300 ease cursor-pointer disabled:cursor-not-allowed disabled:bg-zinc-600 disabled:text-zinc-400"
             >
-              {isLoadingFetch ? 'Cadastrando...' : 'Cadastrar'}
-            </S.Button>
+              {isLoadingFetch ? <Loading /> : 'Cadastrar'}
+            </button>
           </form>
-          <S.ContainerSignUp>
-            <h3 className="title-signup">
+
+          <div className="mt-5">
+            <h3 className="text-base font-inter">
               Já possui login?{' '}
               <Link href="/" passHref>
-                <a>Entrar</a>
+                <a className="text-green-500 hover:text-green-400 decoration-none transition-all duration-200 ease">
+                  Entrar
+                </a>
               </Link>
             </h3>
-          </S.ContainerSignUp>
-        </S.Container>
-      </S.ContainerViewPort>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

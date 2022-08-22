@@ -4,8 +4,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
-import AutoSizer from 'react-virtualized-auto-sizer';
-import { FixedSizeList } from 'react-window';
 
 import { motion } from 'framer-motion';
 
@@ -19,7 +17,6 @@ import { httpClient } from '@/infra/AxiosHttpClient';
 import { HomePageProps } from '@/pages/home';
 
 import { containerAnimation, itemAnimation } from './animations';
-import { WrapperDashboard } from './styles';
 
 const postsService = new PostService(
   httpClient({
@@ -77,13 +74,13 @@ export const HomePresentation = ({
   }, [hasNextPage]);
 
   return (
-    <WrapperDashboard>
+    <main className="h-full w-full p-6 grid grid-areas-presentationHome grid-cols-presentationHome grid-rows-presentationHome gap-6 bg-zinc-1000 overflow-hidden">
       <motion.section
         id="caixa_principal"
         initial="hidden"
         animate="visible"
         variants={containerAnimation}
-        className="box box1"
+        className="h-full p-4 flex flex-col gap-2 grid-in-main bg-zinc-900 rounded-lg overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-zinc-400"
         ref={wrapperPosts}
       >
         {data?.pages.map(page =>
@@ -94,8 +91,8 @@ export const HomePresentation = ({
           )),
         )}
       </motion.section>
-      <section className="box box2" />
-      <section className="box box3" />
-    </WrapperDashboard>
+      <section className="grid-in-firstAside bg-zinc-900 rounded-lg" />
+      <section className="grid-in-secondAside bg-zinc-900 rounded-lg" />
+    </main>
   );
 };

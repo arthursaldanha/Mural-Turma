@@ -1,9 +1,8 @@
 import { ElementType, useState } from 'react';
 
+import { Widget } from '@/shared/components/Feedback/Widget';
 import { Header } from '@/shared/components/Header';
 import { Sidebar } from '@/shared/components/Sidebar';
-
-import { Container, GeneralWrapper } from './styles';
 
 interface Options {
   hasSidebar?: boolean;
@@ -16,13 +15,14 @@ export const withMenu = (WrappedComponent: ElementType, options?: Options) => {
     const [hasHeader] = useState(options?.hasHeader ?? true);
 
     return (
-      <GeneralWrapper>
+      <div className="min-h-screen flex relative">
         {hasSidebar && <Sidebar />}
-        <Container>
+        <div className="min-h-screen flex flex-col flex-1">
           {hasHeader && <Header />}
           <WrappedComponent {...props} />
-        </Container>
-      </GeneralWrapper>
+        </div>
+        <Widget />
+      </div>
     );
   };
 
