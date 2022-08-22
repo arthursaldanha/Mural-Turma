@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 
 import { motion } from 'framer-motion';
+import Head from 'next/head';
 
 import { CardPosts } from '@/domain/Posts/components/Card';
 import {
@@ -74,25 +75,30 @@ export const HomePresentation = ({
   }, [hasNextPage]);
 
   return (
-    <main className="h-full w-full p-6 grid grid-areas-presentationHome grid-cols-presentationHome grid-rows-presentationHome gap-6 bg-zinc-1000 overflow-hidden">
-      <motion.section
-        id="caixa_principal"
-        initial="hidden"
-        animate="visible"
-        variants={containerAnimation}
-        className="h-full p-4 flex flex-col gap-2 grid-in-main bg-zinc-900 rounded-lg overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-zinc-400"
-        ref={wrapperPosts}
-      >
-        {data?.pages.map(page =>
-          page.content.map(post => (
-            <motion.div variants={itemAnimation} key={post.id}>
-              <CardPosts post={post} />
-            </motion.div>
-          )),
-        )}
-      </motion.section>
-      <section className="grid-in-firstAside bg-zinc-900 rounded-lg" />
-      <section className="grid-in-secondAside bg-zinc-900 rounded-lg" />
-    </main>
+    <>
+      <Head>
+        <title>Home • Mural Turma</title>
+      </Head>
+      <main className="h-full w-full p-6 grid grid-areas-presentationHome grid-cols-presentationHome grid-rows-presentationHome gap-6 bg-zinc-1000 overflow-hidden">
+        <motion.section
+          id="caixa_principal"
+          initial="hidden"
+          animate="visible"
+          variants={containerAnimation}
+          className="h-full p-4 flex flex-col gap-2 grid-in-main bg-zinc-900 rounded-lg overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-zinc-400"
+          ref={wrapperPosts}
+        >
+          {data?.pages.map(page =>
+            page.content.map(post => (
+              <motion.div variants={itemAnimation} key={post.id}>
+                <CardPosts post={post} />
+              </motion.div>
+            )),
+          )}
+        </motion.section>
+        <section className="grid-in-firstAside bg-zinc-900 rounded-lg" />
+        <section className="grid-in-secondAside bg-zinc-900 rounded-lg" />
+      </main>
+    </>
   );
 };
