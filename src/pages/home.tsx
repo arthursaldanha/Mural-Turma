@@ -19,44 +19,48 @@ const HomePage: NextPage<HomePageProps> = ({ user, posts }) => (
 );
 
 export const getServerSideProps: GetServerSideProps = async context => {
-  const { 'muralturma-accessToken': acessToken, 'muralturma-user_id': userId } =
-    parseCookies(context);
+  // const { 'muralturma-accessToken': acessToken, 'muralturma-user_id': userId } =
+  //   parseCookies(context);
 
-  if (!acessToken) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-      props: {},
-    };
-  }
+  // if (!acessToken) {
+  //   return {
+  //     redirect: {
+  //       destination: '/',
+  //       permanent: false,
+  //     },
+  //     props: {},
+  //   };
+  // }
 
-  const accountService = new AccountService(
-    httpClient({
-      baseURL: process.env.NEXT_PUBLIC_API_MURAL_URL as string,
-      ctx: context,
-    }),
-  );
+  // const accountService = new AccountService(
+  //   httpClient({
+  //     baseURL: process.env.NEXT_PUBLIC_API_MURAL_URL as string,
+  //     ctx: context,
+  //   }),
+  // );
 
-  const postsService = new PostService(
-    httpClient({
-      baseURL: process.env.NEXT_PUBLIC_API_MURAL_URL as string,
-      ctx: context,
-    }),
-  );
+  // const postsService = new PostService(
+  //   httpClient({
+  //     baseURL: process.env.NEXT_PUBLIC_API_MURAL_URL as string,
+  //     ctx: context,
+  //   }),
+  // );
 
-  const userAccount: IAccount = await accountService.findAccount(
-    Number(userId),
-  );
+  // const userAccount: IAccount = await accountService.findAccount(
+  //   Number(userId),
+  // );
 
-  const postsUser: IResponseGetPost = await postsService.getPosts({
-    classId: userAccount.classList[0].id,
-    size: 10,
-  });
+  // const postsUser: IResponseGetPost = await postsService.getPosts({
+  //   classId: userAccount.classList[0].id,
+  //   size: 10,
+  // });
+
+  // return {
+  //   props: { user: userAccount, posts: postsUser },
+  // };
 
   return {
-    props: { user: userAccount, posts: postsUser },
+    props: {},
   };
 };
 
