@@ -79,7 +79,7 @@ export const HomePresentation = ({
       <Head>
         <title>Home • Mural Turma</title>
       </Head>
-      <main className="h-full w-full p-6 grid grid-areas-presentationHome grid-cols-presentationHome grid-rows-presentationHome gap-6 bg-zinc-1000 overflow-hidden">
+      <main className="max-h-[calc(100vh-60px)] w-full p-6 grid grid-areas-presentationHome grid-cols-presentationHome grid-rows-presentationHome gap-6 bg-zinc-1000 overflow-hidden">
         <motion.section
           id="caixa_principal"
           initial="hidden"
@@ -96,8 +96,8 @@ export const HomePresentation = ({
             )),
           )}
         </motion.section>
-        <section className="grid-in-firstAside bg-zinc-900 rounded-lg" />
-        <section className="grid-in-secondAside bg-zinc-900 rounded-lg" />
+        <section className="grid-in-firstAside bg-zinc-900 rounded-lg overflow-y-auto" />
+        <section className="grid-in-secondAside bg-zinc-900 rounded-lg overflow-y-auto" />
       </main>
     </>
   );
