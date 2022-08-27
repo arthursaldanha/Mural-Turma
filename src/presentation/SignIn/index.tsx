@@ -10,7 +10,6 @@ import Link from 'next/link';
 import { ISignIn, ISignInForm } from '@/domain/Auth/models/signIn';
 import { Loading } from '@/shared/components/Feedback/Loading';
 import { Input } from '@/shared/components/Input';
-import { ErrorMessageValidation } from '@/shared/components/Input/styles';
 import { useAuthContext } from '@/shared/contexts/AuthContext';
 import { signInSchema } from '@/shared/validations/main/signIn';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -59,14 +58,14 @@ export const SignInPresentation = (): JSX.Element => {
                         type="text"
                         placeholder="Nome de usuário"
                         autoComplete="off"
-                        startIcon={<HiUserCircle size={20} color="#fff" />}
+                        startIcon={<HiUserCircle size={18} color="#fff" />}
                         onChange={onChange}
                         error={!!errors?.username?.message}
                       />
                       {errors?.username && (
-                        <ErrorMessageValidation>
+                        <div className="mt-2 ml-2 text-sm text-red-300 font-inter font-medium leading-4">
                           {errors?.username?.message}
-                        </ErrorMessageValidation>
+                        </div>
                       )}
                     </>
                   );
@@ -84,17 +83,17 @@ export const SignInPresentation = (): JSX.Element => {
                       type={isShowingPassword ? 'text' : 'password'}
                       placeholder="Senha"
                       autoComplete="off"
-                      startIcon={<FaKey size={20} color="#fff" />}
+                      startIcon={<FaKey size={18} color="#fff" />}
                       endIcon={
                         isShowingPassword ? (
                           <FaRegEye
-                            size={20}
+                            size={18}
                             color="#fff"
                             onClick={handleChange}
                           />
                         ) : (
                           <FaRegEyeSlash
-                            size={20}
+                            size={18}
                             color="#fff"
                             onClick={handleChange}
                           />
@@ -104,9 +103,9 @@ export const SignInPresentation = (): JSX.Element => {
                       error={!!errors?.password?.message}
                     />
                     {errors?.password && (
-                      <ErrorMessageValidation>
+                      <div className="mt-2 ml-2 text-sm text-red-300 font-inter font-medium leading-4">
                         {errors?.password?.message}
-                      </ErrorMessageValidation>
+                      </div>
                     )}
                   </>
                 )}

@@ -6,7 +6,6 @@ import Link from 'next/link';
 
 import { Loading } from '@/shared/components/Feedback/Loading';
 import { Input } from '@/shared/components/Input';
-import { ErrorMessageValidation } from '@/shared/components/Input/styles';
 import { useAuthContext } from '@/shared/contexts/AuthContext';
 import { forgotPasswordSchema } from '@/shared/validations/main/forgotPassword';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -52,14 +51,14 @@ export const ForgotPasswordPresentation = (): JSX.Element => {
                         type="email"
                         placeholder="Email"
                         autoComplete="off"
-                        startIcon={<MdAlternateEmail size={20} color="#fff" />}
+                        startIcon={<MdAlternateEmail size={18} color="#fff" />}
                         onChange={onChange}
                         error={!!errors?.email?.message}
                       />
                       {errors?.email && (
-                        <ErrorMessageValidation>
+                        <div className="mt-2 ml-2 text-sm text-red-300 font-inter font-medium leading-4">
                           {errors?.email?.message}
-                        </ErrorMessageValidation>
+                        </div>
                       )}
                     </>
                   );

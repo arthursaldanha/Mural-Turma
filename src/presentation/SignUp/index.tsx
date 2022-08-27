@@ -10,7 +10,6 @@ import Link from 'next/link';
 import { ISignUpForm } from '@/domain/Auth/models/signUp';
 import { Loading } from '@/shared/components/Feedback/Loading';
 import { Input } from '@/shared/components/Input';
-import { ErrorMessageValidation } from '@/shared/components/Input/styles';
 import { useAuthContext } from '@/shared/contexts/AuthContext';
 import { signUpSchema } from '@/shared/validations/main/signUp';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -67,14 +66,14 @@ export const SignUpPresentation = (): JSX.Element => {
                         type="text"
                         placeholder="Nome de usuário"
                         autoComplete="off"
-                        startIcon={<HiUserCircle size={20} color="#fff" />}
+                        // startIcon={<HiUserCircle size={20} color="#fff" />}
                         onChange={onChange}
                         error={!!errors?.username?.message}
                       />
                       {errors?.username && (
-                        <ErrorMessageValidation>
+                        <div className="mt-2 ml-2 text-sm text-red-300 font-inter font-medium leading-4">
                           {errors?.username?.message}
-                        </ErrorMessageValidation>
+                        </div>
                       )}
                     </>
                   );
@@ -93,14 +92,14 @@ export const SignUpPresentation = (): JSX.Element => {
                         type="text"
                         placeholder="Nome"
                         autoComplete="off"
-                        startIcon={<HiUserCircle size={20} color="#fff" />}
+                        startIcon={<HiUserCircle size={18} color="#fff" />}
                         onChange={onChange}
                         error={!!errors?.firstName?.message}
                       />
                       {errors?.firstName && (
-                        <ErrorMessageValidation>
+                        <div className="mt-2 ml-2 text-sm text-red-300 font-inter font-medium leading-4">
                           {errors?.firstName?.message}
-                        </ErrorMessageValidation>
+                        </div>
                       )}
                     </>
                   );
@@ -119,14 +118,14 @@ export const SignUpPresentation = (): JSX.Element => {
                         type="text"
                         placeholder="Sobrenome"
                         autoComplete="off"
-                        startIcon={<HiUserCircle size={20} color="#fff" />}
+                        startIcon={<HiUserCircle size={18} color="#fff" />}
                         onChange={onChange}
                         error={!!errors?.lastName?.message}
                       />
                       {errors?.lastName && (
-                        <ErrorMessageValidation>
+                        <div className="mt-2 ml-2 text-sm text-red-300 font-inter font-medium leading-4">
                           {errors?.lastName?.message}
-                        </ErrorMessageValidation>
+                        </div>
                       )}
                     </>
                   );
@@ -145,14 +144,14 @@ export const SignUpPresentation = (): JSX.Element => {
                         type="email"
                         placeholder="Email"
                         autoComplete="off"
-                        startIcon={<MdAlternateEmail size={20} color="#fff" />}
+                        startIcon={<MdAlternateEmail size={18} color="#fff" />}
                         onChange={onChange}
                         error={!!errors?.email?.message}
                       />
                       {errors?.email && (
-                        <ErrorMessageValidation>
+                        <div className="mt-2 ml-2 text-sm text-red-300 font-inter font-medium leading-4">
                           {errors?.email?.message}
-                        </ErrorMessageValidation>
+                        </div>
                       )}
                     </>
                   );
@@ -170,17 +169,17 @@ export const SignUpPresentation = (): JSX.Element => {
                       type={isShowingPassword ? 'text' : 'password'}
                       placeholder="Senha"
                       autoComplete="off"
-                      startIcon={<FaKey size={20} color="#fff" />}
+                      startIcon={<FaKey size={18} color="#fff" />}
                       endIcon={
                         isShowingPassword ? (
                           <FaRegEye
-                            size={20}
+                            size={18}
                             color="#fff"
                             onClick={handleChangeVisiblePassword}
                           />
                         ) : (
                           <FaRegEyeSlash
-                            size={20}
+                            size={18}
                             color="#fff"
                             onClick={handleChangeVisiblePassword}
                           />
@@ -190,9 +189,9 @@ export const SignUpPresentation = (): JSX.Element => {
                       error={!!errors?.password?.message}
                     />
                     {errors?.password && (
-                      <ErrorMessageValidation>
+                      <div className="mt-2 ml-2 text-sm text-red-300 font-inter font-medium leading-4">
                         {errors?.password?.message}
-                      </ErrorMessageValidation>
+                      </div>
                     )}
                   </>
                 )}
@@ -209,17 +208,17 @@ export const SignUpPresentation = (): JSX.Element => {
                       type={isShowingPasswordConfirm ? 'text' : 'password'}
                       placeholder="Confirme a senha"
                       autoComplete="off"
-                      startIcon={<FaKey size={20} color="#fff" />}
+                      startIcon={<FaKey size={18} color="#fff" />}
                       endIcon={
                         isShowingPasswordConfirm ? (
                           <FaRegEye
-                            size={20}
+                            size={18}
                             color="#fff"
                             onClick={handleChangeVisiblePasswordConfirm}
                           />
                         ) : (
                           <FaRegEyeSlash
-                            size={20}
+                            size={18}
                             color="#fff"
                             onClick={handleChangeVisiblePasswordConfirm}
                           />
@@ -229,9 +228,9 @@ export const SignUpPresentation = (): JSX.Element => {
                       error={!!errors?.passwordConfirmation?.message}
                     />
                     {errors?.passwordConfirmation && (
-                      <ErrorMessageValidation>
+                      <div className="mt-2 ml-2 text-sm text-red-300 font-inter font-medium leading-4">
                         {errors?.passwordConfirmation?.message}
-                      </ErrorMessageValidation>
+                      </div>
                     )}
                   </>
                 )}

@@ -1,5 +1,4 @@
 import Text from '@/shared/components/Text';
-import { Avatar } from '@chakra-ui/react';
 
 import { IPost } from '../../models/responses/reponseGetPosts';
 import { WrapperCardPost } from './styles';
@@ -31,11 +30,11 @@ export const CardPosts: React.FC<ICardPostProps> = ({
       </header>
       <footer>
         <div>
-          <Avatar
+          {/* <Avatar
             size="sm"
             name={`${firstName} ${lastName}`}
             src={avatar ?? ''}
-          />
+          /> */}
           <Text>{`${firstName} ${lastName}`}</Text>
         </div>
         <div>Tags</div>

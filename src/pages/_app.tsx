@@ -37,8 +37,6 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
               showOnShallow
               options={{ showSpinner: false }}
             />
-            {/* <ChakraProvider theme={themeToChakra}> */}
-            {/* </ChakraProvider> */}
             <Component {...pageProps} />
           </AuthProvider>
         </QueryClientProvider>

@@ -9,7 +9,6 @@ import { useRouter } from 'next/router';
 import { IRecoveryPasswordForm } from '@/domain/Auth/models/recoveryPassword';
 import { Loading } from '@/shared/components/Feedback/Loading';
 import { Input } from '@/shared/components/Input';
-import { ErrorMessageValidation } from '@/shared/components/Input/styles';
 import { useAuthContext } from '@/shared/contexts/AuthContext';
 import { recoveryPasswordSchema } from '@/shared/validations/main/recoveryPassword';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -62,17 +61,17 @@ export const RecoveryPasswordPresentation = (): JSX.Element => {
                       type={isShowingPassword ? 'text' : 'password'}
                       placeholder="Senha"
                       autoComplete="off"
-                      startIcon={<FaKey size={20} color="#fff" />}
+                      startIcon={<FaKey size={18} color="#fff" />}
                       endIcon={
                         isShowingPassword ? (
                           <FaRegEye
-                            size={20}
+                            size={18}
                             color="#fff"
                             onClick={handleChangeVisiblePassword}
                           />
                         ) : (
                           <FaRegEyeSlash
-                            size={20}
+                            size={18}
                             color="#fff"
                             onClick={handleChangeVisiblePassword}
                           />
@@ -82,9 +81,9 @@ export const RecoveryPasswordPresentation = (): JSX.Element => {
                       error={!!errors?.password?.message}
                     />
                     {errors?.password && (
-                      <ErrorMessageValidation>
+                      <div className="mt-2 ml-2 text-sm text-red-300 font-inter font-medium leading-4">
                         {errors?.password?.message}
-                      </ErrorMessageValidation>
+                      </div>
                     )}
                   </>
                 )}
@@ -101,17 +100,17 @@ export const RecoveryPasswordPresentation = (): JSX.Element => {
                       type={isShowingPasswordConfirm ? 'text' : 'password'}
                       placeholder="Confirme a senha"
                       autoComplete="off"
-                      startIcon={<FaKey size={20} color="#fff" />}
+                      startIcon={<FaKey size={18} color="#fff" />}
                       endIcon={
                         isShowingPasswordConfirm ? (
                           <FaRegEye
-                            size={20}
+                            size={18}
                             color="#fff"
                             onClick={handleChangeVisiblePasswordConfirm}
                           />
                         ) : (
                           <FaRegEyeSlash
-                            size={20}
+                            size={18}
                             color="#fff"
                             onClick={handleChangeVisiblePasswordConfirm}
                           />
@@ -121,9 +120,9 @@ export const RecoveryPasswordPresentation = (): JSX.Element => {
                       error={!!errors?.passwordConfirmation?.message}
                     />
                     {errors?.passwordConfirmation && (
-                      <ErrorMessageValidation>
+                      <div className="mt-2 ml-2 text-sm text-red-300 font-inter font-medium leading-4">
                         {errors?.passwordConfirmation?.message}
-                      </ErrorMessageValidation>
+                      </div>
                     )}
                   </>
                 )}
