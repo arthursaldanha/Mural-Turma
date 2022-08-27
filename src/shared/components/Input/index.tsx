@@ -12,8 +12,6 @@ export const Input: React.FC<IInput> = ({
   error,
   ...restProps
 }) => {
-  console.log(error);
-
   return (
     <div>
       <div className="mt-1 relative rounded-md shadow-sm">
