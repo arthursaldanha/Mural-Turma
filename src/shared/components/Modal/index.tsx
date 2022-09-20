@@ -3,7 +3,6 @@ import { ReactNode } from 'react';
 import { CloseCircle } from 'iconsax-react';
 
 import { Modal as ModalComponent } from './components';
-import { Wrapper } from './styles';
 
 interface ModalProps {
   isShowCloseButton?: boolean;
@@ -21,20 +20,26 @@ export const Modal: React.FC<ModalProps> = ({
   backgroundColor,
 }) => {
   const modalContent = (
-    <Wrapper backgroundColor={backgroundColor}>
+    <div
+      className="flex flex-col items-center flex-1"
+      style={{ backgroundColor: backgroundColor || '' }}
+    >
       {isShowCloseButton && (
-        <header>
-          <CloseCircle onClick={onClose} />
+        <header className="w-full bg-zinc-800 flex justify-end sm:shadow-modal">
+          <CloseCircle
+            onClick={onClose}
+            className="text-grey-800 my-2 mr-4 cursor-pointer sm:my-2 sm:mx-4"
+          />
         </header>
       )}
 
       {children}
-    </Wrapper>
+    </div>
   );
 
   return (
     <ModalComponent
-      open={isOpen}
+      isOpen={isOpen}
       onClose={onClose}
       modalContent={modalContent}
     />

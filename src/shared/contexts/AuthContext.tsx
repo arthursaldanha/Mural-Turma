@@ -142,7 +142,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
         );
 
         toast({
-          type: 'sucess',
+          type: 'success',
           title: 'Cadastro realizado!',
           subTitle: 'Verifique o seu e-mail para confirmar a conta.',
         });
@@ -170,7 +170,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
         await authService.forgotPassword(email);
 
         toast({
-          type: 'sucess',
+          type: 'success',
           title: 'Pedido de alteração realizado!',
           subTitle: 'Verifique o seu e-mail para alterar a senha.',
         });
@@ -195,10 +195,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     async (id: number, password: string, token: string) => {
       try {
         setIsLoadingFetch(true);
-        await authService.recoveryPassword(id, password, token);
+        await authService.recoveryPassword(
+          id,
+          password,
+          encodeURIComponent(token),
+        );
 
         toast({
-          type: 'sucess',
+          type: 'success',
           title: 'Sucesso!',
           subTitle: 'Sua senha foi alterada com sucesso.',
         });

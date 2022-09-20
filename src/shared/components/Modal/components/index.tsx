@@ -1,71 +1,65 @@
-import React, { useRef, useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
-import { ModalProps } from '@/shared/types';
+import { Dialog, Transition } from '@headlessui/react';
 
-import { Background, ModalWrapper } from './styles';
+const backgroundVariants = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      duration: 0.4,
+    },
+  },
+};
 
-export const Modal: React.FC<ModalProps> = ({
-  open,
-  onClose,
-  modalContent,
-}) => {
-  const modalRef = useRef<HTMLDivElement>(null);
+export interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  modalContent: JSX.Element;
+}
 
+export const Modal = ({ isOpen, onClose, modalContent }: ModalProps) => {
   useEffect(() => {
-    function handleClickOutside(event: { target: any }) {
-      if (modalRef && modalRef.current && modalRef.current === event.target) {
-        onClose();
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (open) {
+    if (isOpen) {
       document.body.style.overflow = 'hidden';
       return;
     }
     document.body.style.overflow = 'auto';
-  }, [open]);
-
-  const backgroundVariants = {
-    initial: {
-      opacity: 0,
-    },
-    animate: {
-      opacity: 1,
-      transition: {
-        duration: 0.4,
-      },
-    },
-  };
+  }, [isOpen]);
 
   return (
     <AnimatePresence>
-      {open && (
-        <Background
+      {isOpen && (
+        <Dialog
+          static
+          as={motion.div}
           variants={backgroundVariants}
           animate="animate"
           initial="initial"
-          ref={modalRef}
           exit={{
             opacity: 0,
           }}
+          open={isOpen}
+          onClose={onClose}
         >
-          <ModalWrapper
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            {modalContent}
-          </ModalWrapper>
-        </Background>
+          <div className="fixed inset-0 bg-black/30" />
+
+          <div className="w-full h-full fixed inset-0 flex justify-center items-center z-[99] sm:items-end">
+            <Dialog.Panel
+              as={motion.div}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="max-h-screen max-w-full bg-zinc-800 shadow-modalComponent rounded-lg flex overflow-hidden z-100 sm:w-full sm:rounded-t-lg sm:rounded-b-none"
+            >
+              {modalContent}
+            </Dialog.Panel>
+          </div>
+        </Dialog>
       )}
     </AnimatePresence>
   );

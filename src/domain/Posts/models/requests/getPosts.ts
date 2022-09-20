@@ -1,7 +1,7 @@
-interface IPostsRequest {
+interface IGetPosts {
   classId: number;
   size?: number;
   page?: number;
 }
 
-export { type IPostsRequest };
+export { type IGetPosts };

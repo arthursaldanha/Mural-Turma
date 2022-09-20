@@ -6,7 +6,7 @@ import { Container } from '../Container';
 import { StyledAlerts, StyledAlertsNoTitle } from './styles';
 
 export interface IToastProps extends React.HTMLAttributes<HTMLDivElement> {
-  type: 'sucess' | 'alert' | 'error';
+  type: 'success' | 'alert' | 'error';
   title?: string;
   subTitle?: string;
   size?: 'lg' | 'md' | 'sm';
@@ -32,7 +32,7 @@ export const Toast: React.FC<IToastProps> = ({
       style={{ display: getCloseClick ? 'none' : 'flex' }}
     >
       <svg>
-        {type === 'sucess' ? (
+        {type === 'success' ? (
           <TickCircle />
         ) : type === 'alert' ? (
           <InfoCircle />
@@ -57,7 +57,7 @@ export const Toast: React.FC<IToastProps> = ({
       style={{ display: getCloseClick ? 'none' : 'flex' }}
     >
       <svg>
-        {type === 'sucess' ? (
+        {type === 'success' ? (
           <TickCircle />
         ) : type === 'alert' ? (
           <InfoCircle />

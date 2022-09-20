@@ -9,14 +9,9 @@ module.exports = {
     './src/presentation/**/*.{js,ts,jsx,tsx}',
     './src/shared/components/**/*.{js,ts,jsx,tsx}',
   ],
+  mode: 'jit',
   theme: {
     extend: {
-      screens: {
-        sm: '480px',
-        md: '768px',
-        lg: '1024px',
-        xl: '1440px',
-      },
       colors: {
         green: {
           50: '#ebfaf6',
@@ -90,12 +85,37 @@ module.exports = {
           800: '#C62828',
           900: '#B71C1C',
         },
+        grey: {
+          50: '#FAFAFA',
+          100: '#F5F5F5',
+          200: '#EEEEEE',
+          300: '#E0E0E0',
+          400: '#BDBDBD',
+          500: '#9E9E9E',
+          600: '#757575',
+          700: '#616161',
+          800: '#424242',
+          900: '#212121',
+        },
         zinc: {
           1000: '#121212',
         },
       },
       borderRadius: {
         md: '4px',
+      },
+      spacing: {
+        3: '0.75rem',
+      },
+      boxShadow: {
+        modalComponent: '0 5px 16px rgba(0, 0, 0, 0.2)',
+        modal: '0px 0px 4px rgba(0, 0, 0, 0.1)',
+      },
+      zIndex: {
+        100: '100',
+      },
+      transitionDuration: {
+        400: '400ms',
       },
       fontFamily: {
         inter: ['Inter'],
@@ -111,6 +131,24 @@ module.exports = {
       },
       gridTemplateRows: {
         presentationHome: '1fr 1fr',
+      },
+      screens: {
+        sm: { max: '480px' },
+        sm2: { max: '540px' },
+        sm3: { max: '620px' },
+        sm4: { max: '700px' },
+
+        md: { max: '768px' },
+        md2: { max: '840px' },
+        md3: { max: '920px' },
+        md4: { max: '960px' },
+
+        lg: { max: '1024px' },
+        lg2: { max: '1200px' },
+        lg3: { max: '1280px' },
+        xl4: { max: '1360px' },
+
+        xl: { max: '1440px' },
       },
     },
   },
